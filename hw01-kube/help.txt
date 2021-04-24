@@ -17,6 +17,7 @@ kubectl rollout undo deployment ms-arch-2021-03-deployment
 kubectl apply -f deployment.yml -f service.yml
 doskey /History
 -> LoadBalancer
+docker build -t xamejleoh/hw01-kube:0.1 .
 minikube addons enable metallb
 minikube addons configure metallb
 -- Enter Load Balancer Start IP: 192.168.176.130

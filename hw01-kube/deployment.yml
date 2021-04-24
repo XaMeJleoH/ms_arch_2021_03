@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: hw01-kube
-          image: xamejleoh/hw01-kube:0.1
+          image: xamejleoh/hw01-kube:0.2
           imagePullPolicy: Always
           ports:
             - name: web
