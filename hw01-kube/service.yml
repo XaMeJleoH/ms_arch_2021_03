@@ -4,7 +4,7 @@ metadata:
   name: ms-arch-2021-03-service
 spec:
   selector:
-    app: hw1-app
+    app: hw01-kube-app
   ports:
     - protocol: TCP
       port: 9000

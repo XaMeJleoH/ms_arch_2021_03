@@ -6,15 +6,15 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hw1-app
+      app: hw01-kube-app
   template:
     metadata:
       labels:
-        app: hw1-app
+        app: hw01-kube-app
     spec:
       containers:
-        - name: hw1
-          image: hw1:v1
+        - name: hw01-kube
+          image: hw01-kube:v1
           imagePullPolicy: Always
           ports:
             - name: web
