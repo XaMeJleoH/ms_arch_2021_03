@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-arch-2021-03-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hw1-app
+  template:
+    metadata:
+      labels:
+        app: hw1-app
+    spec:
+      containers:
+        - name: hw1
+          image: hw1:v1
+          imagePullPolicy: Always
+          ports:
+            - name: web
+              containerPort: 8000
+
+
