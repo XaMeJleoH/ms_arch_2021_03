@@ -16,6 +16,15 @@ kubectl rollout history deployment/ms-arch-2021-03-deployment deployment.apps/ms
 kubectl rollout undo deployment ms-arch-2021-03-deployment
 kubectl apply -f deployment.yml -f service.yml
 doskey /History
+-> LoadBalancer
+minikube addons enable metallb
+minikube addons configure metallb
+-- Enter Load Balancer Start IP: 192.168.176.130
+-- Enter Load Balancer End IP: 192.168.176.140
 minikube addons enable ingress
-kubectl get pods -n kube-system | grep ingress
+kubectl get pods -n ingress-nginx
+*kubectl get pods -n kube-system | grep ingress
 kubectl apply -f deployment.yml -f service.yml -f ingress.yml
+** В случае ошибки, я использовал kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+kubectl get ingress ms-arch-2021-03-ingress
+kubectl describe ingress ms-arch-2021-03-ingress
