@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: hw01-kube
-          image: hw01-kube:v1
+          image: xamejleoh/hw01-kube:0.1
           imagePullPolicy: Always
           ports:
             - name: web
-              containerPort: 8000
+              containerPort: 80
 
 

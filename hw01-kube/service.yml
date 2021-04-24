@@ -9,4 +9,4 @@ spec:
     - protocol: TCP
       port: 9000
       targetPort: web
-  type: ClusterIP
+  type: NodePort

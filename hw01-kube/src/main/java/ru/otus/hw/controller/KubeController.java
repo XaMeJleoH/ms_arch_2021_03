@@ -15,7 +15,7 @@ public class KubeController {
 
     @GetMapping(name = "/", produces = "application/json")
     public String getVersion() {
-        return String.format("Hello, nice to meet you. applicationId=%s", this.applicationContext.getId());
+        return String.format("Hello, nice to meet you. Image from dockerHub. applicationId=%s", this.applicationContext.getId());
     }
 
 /*
