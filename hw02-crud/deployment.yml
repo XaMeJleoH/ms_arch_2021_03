@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-arch-2021-03-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hw01-kube-app
+  template:
+    metadata:
+      labels:
+        app: hw01-kube-app
+    spec:
+      containers:
+        - name: hw01-kube
+          image: xamejleoh/hw01-kube:0.2
+          imagePullPolicy: Always
+          ports:
+            - name: web
+              containerPort: 80
+
+
