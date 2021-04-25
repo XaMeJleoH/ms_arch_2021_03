@@ -38,25 +38,71 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://arch.homework/otusapp/makhanov/hw/",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"otusapp",
+						"makhanov",
+						"hw",
+						""
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "via Ip - Задание со звездой - реврайт пути",
+			"name": "del - via Ip - Задание со звездой - реврайт пути",
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": null
+				"header": [
+					{
+						"key": "Host",
+						"value": "arch.homework",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.99.100/otusapp/makhanov/actuator/health",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"99",
+						"100"
+					],
+					"path": [
+						"otusapp",
+						"makhanov",
+						"actuator",
+						"health"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "arch.homework:30553",
+			"name": "del - arch.homework:30553",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://arch.homework:30553/actuator/health",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"port": "30553",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
 			},
 			"response": []
 		}
