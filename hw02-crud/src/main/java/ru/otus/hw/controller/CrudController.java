@@ -2,7 +2,6 @@ package ru.otus.hw.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.model.User;
 import ru.otus.hw.service.UserService;
@@ -16,7 +15,8 @@ public class CrudController {
     private final UserService userService;
 
     @PostMapping
-    public @ResponseBody User createUser(@RequestBody User user) {
+    public @ResponseBody
+    User createUser(@RequestBody User user) {
         log.info("Try to create User={}", user);
         return userService.createUser(user);
     }
@@ -28,13 +28,15 @@ public class CrudController {
     }
 
     @PostMapping("/{userId}")
-    public @ResponseBody boolean deleteUser(@PathVariable Integer userId) {
+    public @ResponseBody
+    boolean deleteUser(@PathVariable Integer userId) {
         log.info("Try to delete userId={}", userId);
         return userService.deleteUser(userId);
     }
 
     @PutMapping
-    public @ResponseBody boolean updateUser(@RequestBody User user) {
+    public @ResponseBody
+    boolean updateUser(@RequestBody User user) {
         log.info("Try to update User={}", user);
         return userService.updateUser(user);
     }

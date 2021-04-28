@@ -5,7 +5,7 @@ import org.mapstruct.factory.Mappers;
 import ru.otus.hw.model.User;
 import ru.otus.hw.model.UserDTO;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface UserMapping {
     public UserMapping mapper = Mappers.getMapper(UserMapping.class);
 
