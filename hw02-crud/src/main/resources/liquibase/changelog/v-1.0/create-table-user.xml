@@ -9,7 +9,7 @@
     <changeSet author="XaMeJleoH" id="1">
         <comment>Create table for User</comment>
         <createTable tableName="user" schemaName="hw">
-            <column autoIncrement="true" name="id" type="integer">
+            <column autoIncrement="true" name="id" type="bigserial">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="user_name" type="varchar(255)"/>

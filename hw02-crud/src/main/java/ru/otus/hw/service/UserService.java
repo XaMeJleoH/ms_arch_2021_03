@@ -1,7 +1,8 @@
 package ru.otus.hw.service;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.otus.hw.mapper.UserMapping;
 import ru.otus.hw.model.User;
@@ -11,11 +12,11 @@ import ru.otus.hw.repository.UserRepository;
 import java.util.Optional;
 
 @Data
-@RequiredArgsConstructor
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public User getUser(Integer userId) {
         UserDTO userDTO = userRepository.findById(userId).orElse(null);
@@ -33,7 +34,23 @@ public class UserService {
         if (userDTOOptional.isEmpty()) {
             return false;
         }
-        userRepository.delete(userDTOOptional.get());
+        UserDTO userDTO = userDTOOptional.get();
+        if (StringUtils.isNotBlank(user.getLastName())) {
+            userDTO.setLastName(user.getLastName());
+        }
+        if (StringUtils.isNotBlank(user.getFirstName())) {
+            userDTO.setFirstName(user.getFirstName());
+        }
+        if (StringUtils.isNotBlank(user.getUsername())) {
+            userDTO.setUsername(user.getUsername());
+        }
+        if (StringUtils.isNotBlank(user.getEmail())) {
+            userDTO.setEmail(user.getEmail());
+        }
+        if (StringUtils.isNotBlank(user.getPhone())) {
+            userDTO.setPhone(user.getPhone());
+        }
+        userRepository.save(userDTO);
         return true;
     }
 

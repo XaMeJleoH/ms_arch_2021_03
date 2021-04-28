@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <version>${spring.boot.version}</version>
     </parent>
 
     <properties>
@@ -50,6 +50,7 @@
         <posgresql.version>42.2.10</posgresql.version>
         <liquibase.version>3.6.3</liquibase.version>
         <sl4j.version>1.7.28</sl4j.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
         <assertj-core.version>3.13.2</assertj-core.version>
         <jetty.version>9.4.27.v20200227</jetty.version>
         <json.version>20190722</json.version>
