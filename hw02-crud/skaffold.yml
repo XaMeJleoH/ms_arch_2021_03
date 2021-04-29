@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2alpha4
+kind: Config
+metadata:
+  name: configuration
+build:
+  artifacts:
+    - image: xamejleoh/hw02-crud
+deploy:
+  kubectl:
+    manifests:
+      - deployment.yml
+      - ingress.yml
+      - postgresql.yml
+      - service.yml
+

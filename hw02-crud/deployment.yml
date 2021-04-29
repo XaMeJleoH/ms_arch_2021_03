@@ -6,18 +6,20 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hw01-kube-app
+      app: hw02-crud-app
   template:
     metadata:
       labels:
-        app: hw01-kube-app
+        app: hw02-crud-app
     spec:
       containers:
-        - name: hw01-kube
-          image: xamejleoh/hw01-kube:0.2
+        - name: hw02-crud
+          #image: xamejleoh/hw02-crud:0.1
+          image: hw02-crud:0.1
           imagePullPolicy: Always
           ports:
             - name: web
               containerPort: 80
+
 
 

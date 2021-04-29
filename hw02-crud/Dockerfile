@@ -15,3 +15,5 @@ COPY ${JAR_FILE} app.jar
 
 # java -jar /opt/app/app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
+#ENTRYPOINT ["java","-jar","app.jar", "--spring.config.additional-location=/config/application.properties"]
+#ENTRYPOINT ["java","-cp","app:app/lib/*","com.my.Application","--spring.config.additional-location=/config/application-dev.properties"]

@@ -34,3 +34,6 @@ hw2
 kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml
 minikube service postgres -n default --url
 psql -h 127.0.0.1 -p 51510 -U myuser -W myapp
+kubectl delete all --all
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml -f app-config.yml
+**docker build -t hw02-crud:0.1 .
