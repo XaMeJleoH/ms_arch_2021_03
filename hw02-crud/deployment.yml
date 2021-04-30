@@ -15,11 +15,13 @@ spec:
       containers:
         - name: hw02-crud
           image: xamejleoh/hw02-crud:0.1
-          #image: hw02-crud:0.1
           imagePullPolicy: Always
           ports:
             - name: web
               containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: ms-arch-2021-03-config
 
 
 
