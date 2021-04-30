@@ -22,6 +22,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: ms-arch-2021-03-config
+            - secretRef:
+                name: ms-arch-2021-03-secret
 
 
 
