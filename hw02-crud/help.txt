@@ -1,6 +1,7 @@
 Let's to start:
 
-minikube start;
+*minikube start;
+minikube start --driver=virtualbox --no-vtx-check
 minikube ip
 set DOCKER_TLS_VERIFY=1
 set DOCKER_HOST=tcp://192.168.99.100:2376
@@ -22,7 +23,7 @@ minikube addons enable metallb
 minikube addons configure metallb
 -- Enter Load Balancer Start IP: 192.168.176.130
 -- Enter Load Balancer End IP: 192.168.176.140
-minikube addons enable ingress
+minikube addons enable ingress --alsologtostderr
 kubectl get pods -n ingress-nginx
 *kubectl get pods -n kube-system | grep ingress
 kubectl apply -f deployment.yml -f service.yml -f ingress.yml
@@ -33,7 +34,8 @@ kubectl describe ingress ms-arch-2021-03-ingress
 hw2
 kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml
 minikube service postgres -n default --url
-psql -h 127.0.0.1 -p 51510 -U myuser -W myapp
+    psql -h 127.0.0.1 -p 51510 -U myuser -W myapp
 kubectl delete all --all
 kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml -f app-config.yml
+docker build -t xamejleoh/hw02-crud:0.1 .
 **docker build -t hw02-crud:0.1 .

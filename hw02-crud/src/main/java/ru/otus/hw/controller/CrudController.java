@@ -3,7 +3,6 @@ package ru.otus.hw.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.otus.hw.configuration.ClientConfig;
 import ru.otus.hw.model.User;
 import ru.otus.hw.service.UserService;
 
@@ -14,12 +13,6 @@ import ru.otus.hw.service.UserService;
 public class CrudController {
 
     private final UserService userService;
-    private final ClientConfig config;
-
-    @GetMapping("/{getUser}")
-    public String getUser(@PathVariable String getUser) {
-        return String.format(config.getUsername(), getUser, "test");
-    }
 
     @PostMapping
     public @ResponseBody

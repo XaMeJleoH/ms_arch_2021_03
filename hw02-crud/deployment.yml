@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: hw02-crud
-          #image: xamejleoh/hw02-crud:0.1
-          image: hw02-crud:0.1
+          image: xamejleoh/hw02-crud:0.1
+          #image: hw02-crud:0.1
           imagePullPolicy: Always
           ports:
             - name: web

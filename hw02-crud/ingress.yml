@@ -17,4 +17,3 @@ spec:
                 name: ms-arch-2021-03-service
                 port:
                   number: 9000
-

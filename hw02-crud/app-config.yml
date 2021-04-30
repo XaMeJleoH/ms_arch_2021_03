@@ -11,5 +11,5 @@ data:
   #POSTGRES_DB_PASSWORD: passwd
   application.properties: |-
     spring.datasource.url=jdbc:postgresql://localhost:61384/myapp
-    spring.datasource.username=myuser
+    spring.datasource.username=myuser1212
     spring.datasource.password=passwd
