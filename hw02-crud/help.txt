@@ -39,3 +39,10 @@ kubectl delete all --all
 kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml -f app-config.yml
 docker build -t xamejleoh/hw02-crud:0.1 .
 **docker build -t hw02-crud:0.1 .
+
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+helm install default ./hello-chart --dry-run
+helm uninstall default
+kubectl delete all --all
