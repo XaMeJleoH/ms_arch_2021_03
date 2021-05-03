@@ -1,0 +1,8 @@
+replicaCount: 2
+
+image:
+  repository: hw02-crud
+
+service:
+  type: NodePort
+  port: 9000

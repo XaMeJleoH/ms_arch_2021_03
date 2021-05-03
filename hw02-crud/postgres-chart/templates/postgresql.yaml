@@ -1,34 +1,34 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: {{ include "postgres-chart.fullname" . }}
   labels:
-    app: postgres
+    app: {{ include "postgres-chart.fullname" . }}
 spec:
   type: NodePort
   ports:
     - port: 5432
   selector:
-    app: postgres
+    app: {{ include "postgres-chart.fullname" . }}
 
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres-statefulset
+  name: {{ include "postgres-chart.fullname" . }}-statefulset
 spec:
-  serviceName: "postgres"
+  serviceName: {{ include "postgres-chart.fullname" . }}
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: {{ include "postgres-chart.fullname" . }}
   template:
     metadata:
       labels:
-        app: postgres
+        app: {{ include "postgres-chart.fullname" . }}
     spec:
       containers:
-        - name: postgres
+        - name: {{ include "postgres-chart.fullname" . }}
           image: postgres:latest
           ports:
             - containerPort: 5432
@@ -43,7 +43,7 @@ spec:
           volumeMounts:
             - name: postgredb
               mountPath: /var/lib/postgresql/data
-              subPath: postgres
+              subPath: {{ include "postgres-chart.fullname" . }}
   volumeClaimTemplates:
     - metadata:
         name: postgredb

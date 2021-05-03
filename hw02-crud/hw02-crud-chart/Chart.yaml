@@ -1,5 +1,5 @@
 apiVersion: v2
-name: hello-chart
+name: ms-arch-2021-03
 description: Helm chart for ms-arch-2021-03
 
 # A chart can be either an 'application' or a 'library' chart.

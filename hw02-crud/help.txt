@@ -46,3 +46,11 @@ kubectl delete all --all
 helm install default ./hello-chart --dry-run
 helm uninstall default
 kubectl delete all --all
+
+helm install hw02-crud ./hw02-crud-chart
+helm install postgres ./postgres-chart
+helm install ingress-chart ./ingress-chart
+
+helm uninstall hw02-crud
+helm uninstall postgres
+helm uninstall ingress-chart
