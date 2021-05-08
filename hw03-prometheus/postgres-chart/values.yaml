@@ -13,7 +13,3 @@ externalPostgresql:
   postgresqlDatabase: myapp
   postgresqlHost: "postgres"
   postgresqlPort: "5432"
-
-metrics:
-  serviceMonitor:
-    enabled: true

@@ -100,3 +100,21 @@ helm uninstall ingress-chart
 
 kubectl get servicemonitors.monitoring.coreos.com
 kubectl describe servicemonitors.monitoring.coreos.com  postgres
+
+
+* В hw03-prometheus добавлен мониторинг
+helm install prom prometheus-community/kube-prometheus-stack -f prometheus.yaml --atomic
+helm install nginx ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic --set controller.service.type=NodePort --set controller.admissionWebhooks.enabled=false
+helm install hw03-prometheus ./hw03-prometheus-chart
+helm install postgres ./postgres-chart
+
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+helm uninstall prom prometheus-community/kube-prometheus-stack
+helm uninstall nginx ingress-nginx/ingress-nginx
+helm uninstall hw03-prometheus
+helm uninstall postgres
+
+** Если проблемы с ингресс, то попробовать удалить
+kubectl get validatingwebhookconfigurations  --all-namespaces

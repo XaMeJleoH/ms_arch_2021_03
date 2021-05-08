@@ -2,17 +2,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "postgres-chart.fullname" . }}
+  name: {{ include "hw03-prometheus-chart.fullname" . }}
   labels:
-    {{- include "postgres-chart.labels" . | nindent 4 }}
+    {{- include "hw03-prometheus-chart.labels" . | nindent 4 }}
 spec:
-  jobLabel: {{ include "postgres-chart.fullname" . }}
+  jobLabel: {{ include "hw03-prometheus-chart.fullname" . }}
   namespaceSelector:
     matchNames:
       - "{{ $.Release.Namespace }}"
   selector:
     matchLabels:
-      {{- include "postgres-chart.selectorLabels" . | nindent 6 }}
+      {{- include "hw03-prometheus-chart.selectorLabels" . | nindent 6 }}
   endpoints:
     - interval: 15s
       port: web

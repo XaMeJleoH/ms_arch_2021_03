@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled -}}
+  {{- $fullName := include "hw03-prometheus-chart.fullname" . -}}
+  {{- $svcPort := .Values.service.port -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "hw03-prometheus-chart.labels" . | nindent 4 }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  {{- range .Values.ingress.hosts }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      {{- range .paths }}
+      - path: {{ . }}($|/)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: {{ $fullName }}
+            port:
+              number: 9000
+      {{- end }}
+  {{- end }}
+  {{- end }}
