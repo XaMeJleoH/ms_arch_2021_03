@@ -1,0 +1,12 @@
+replicaCount: 2
+
+image:
+  repository: hw03-prometheus
+
+service:
+  type: NodePort
+  port: 9000
+
+metrics:
+  serviceMonitor:
+    enabled: true
