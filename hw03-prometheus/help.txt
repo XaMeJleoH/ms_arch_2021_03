@@ -122,3 +122,5 @@ kubectl get validatingwebhookconfigurations  --all-namespaces
 kubectl delete -A ValidatingWebhookConfiguration prom-kube-prometheus-stack-admission
 
 kubectl get pods -l app.kubernetes.io/instance=hw03-prometheus
+
+rate(http_server_requests_seconds_count{endpoint="/db"}[1m])
