@@ -104,7 +104,8 @@ kubectl describe servicemonitors.monitoring.coreos.com  postgres
 
 * В hw03-prometheus добавлен мониторинг
 helm install prom prometheus-community/kube-prometheus-stack -f prometheus.yaml --atomic
-helm install nginx ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic --set controller.service.type=NodePort --set controller.admissionWebhooks.enabled=false
+helm install nginx ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic
+helm upgrade nginx stable/nginx-ingress -f nginx-ingress.yaml
 helm install hw03-prometheus ./hw03-prometheus-chart
 helm install postgres ./postgres-chart
 
@@ -118,3 +119,5 @@ helm uninstall postgres
 
 ** Если проблемы с ингресс, то попробовать удалить
 kubectl get validatingwebhookconfigurations  --all-namespaces
+
+kubectl get pods -l app.kubernetes.io/instance=hw03-prometheus

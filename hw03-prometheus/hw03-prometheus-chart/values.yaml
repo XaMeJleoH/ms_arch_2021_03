@@ -18,6 +18,9 @@ metrics:
   serviceMonitor:
     enabled: true
 
+ingressName: ms-arch-2021-03-ingress
+ingressHost: arch.homework
+ingressServiceName: hw03-prometheus-ms-arch-2021-03
 ingress:
   enabled: true
   hosts:
