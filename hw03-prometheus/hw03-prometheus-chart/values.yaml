@@ -17,6 +17,7 @@ externalPostgresql:
 metrics:
   serviceMonitor:
     enabled: true
+  path: /actuator/prometheus
 
 ingressName: ms-arch-2021-03-ingress
 ingressHost: arch.homework

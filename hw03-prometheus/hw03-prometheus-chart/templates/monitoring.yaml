@@ -16,5 +16,6 @@ spec:
   endpoints:
     - interval: 15s
       port: web
-      path: /metrics
+      #path: /metrics
+      path: {{ .Values.metrics.path }}
   {{- end }}
