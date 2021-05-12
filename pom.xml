@@ -49,7 +49,7 @@
         <h2.version>1.4.200</h2.version>
         <hibernate-core.version>5.4.4.Final</hibernate-core.version>
         <posgresql.version>42.2.10</posgresql.version>
-        <liquibase.version>3.6.3</liquibase.version>
+        <liquibase.version>4.3.3</liquibase.version>
         <sl4j.version>1.7.28</sl4j.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <assertj-core.version>3.13.2</assertj-core.version>
