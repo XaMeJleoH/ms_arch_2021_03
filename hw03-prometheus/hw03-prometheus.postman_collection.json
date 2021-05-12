@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "b1f67536-194c-4974-9bb9-76a2bdfc85f5",
-		"name": "hw02-crud",
+		"_postman_id": "ab2cf554-b21d-4491-9af5-a84fd2b37300",
+		"name": "hw03-prometheus",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Health",
+			"name": "Health - With 404 code",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -28,6 +28,34 @@
 						"makhanov",
 						"actuator",
 						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator - Prometheus",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Host",
+						"value": "arch.homework",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://arch.homework/otusapp/makhanov/actuator/prometheus",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"otusapp",
+						"makhanov",
+						"actuator",
+						"prometheus"
 					]
 				}
 			},
@@ -190,22 +218,38 @@
 			"response": []
 		},
 		{
-			"name": "del -test enb",
+			"name": "updateUser - With 500 code",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"updatedUserName\",\r\n    \"firstName\":\"updatedFirstName\",\r\n    \"lastName\": \"updatedLastName\",\r\n    \"email\":\"updatedemail@email.email\",\r\n    \"phone\":\"updated+4434\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://127.0.0.1/user/s",
+					"raw": "http://arch.homework/otusapp/makhanov/user/",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"arch",
+						"homework"
 					],
 					"path": [
+						"otusapp",
+						"makhanov",
 						"user",
-						"s"
+						""
 					]
 				}
 			},
