@@ -124,6 +124,12 @@ rate(http_server_requests_seconds_count{endpoint="/user.*"}[1m])
 sum(rate(http_server_requests_seconds_count{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))
 rate(app_request_latency_seconds_bucket{exported_endpoint="/db"}[1m])
 rate(http_server_requests_seconds_sum{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m])
-sum by (uri,method) (rate(http_server_requests_seconds_sum{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))
-histogram_quantile(0.5, (sum by (uri,method) (rate(http_server_requests_seconds_sum{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))))
+sum by (le) (rate(http_server_requests_seconds_bucket{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))
+histogram_quantile(0.5, (sum by (le) (rate(http_server_requests_seconds_bucket{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))))
 
+sum by (le) (rate(app_request_latency_seconds_bucket{exported_endpoint="/db"}[1m]))
+
+histogram_quantile(0.5, (sum by (le) (rate(app_request_latency_seconds_bucket{exported_endpoint="/db"}[1m]))))
+sum(rate(http_server_requests_seconds_count{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*", status=~"5.."}[1m]))
+
+sum(increase(http_server_requests_seconds_count{status=~"5.+"}[1m]))

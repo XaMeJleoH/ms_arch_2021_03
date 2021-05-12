@@ -15,114 +15,35 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 26,
+  "id": 25,
   "links": [],
   "panels": [
     {
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 6,
-      "title": "Row title",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
+      "dashboardFilter": "",
+      "dashboardTags": [],
       "datasource": null,
       "fieldConfig": {
         "defaults": {},
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 7,
-        "w": 7,
+        "h": 6,
+        "w": 4,
         "x": 0,
-        "y": 1
+        "y": 0
       },
-      "hiddenSeries": false,
-      "id": 4,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
+      "id": 16,
+      "limit": 10,
+      "nameFilter": "",
+      "onlyAlertsOnDashboard": false,
       "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(rate(http_server_requests_seconds_count{service=\"hw03-prometheus-ms-arch-2021-03\", uri=~\"/user.*\"}[1m]))",
-          "interval": "",
-          "legendFormat": "{{service}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
+      "show": "current",
+      "sortOrder": 1,
+      "stateFilter": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "RPS - total",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Alerts",
+      "type": "alertlist"
     },
     {
       "aliasColors": {},
@@ -140,23 +61,23 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
-        "w": 17,
-        "x": 7,
-        "y": 1
+        "h": 6,
+        "w": 15,
+        "x": 4,
+        "y": 0
       },
       "hiddenSeries": false,
       "id": 2,
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
+        "alignAsTable": false,
+        "avg": false,
         "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
         "show": true,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
       "linewidth": 1,
@@ -180,7 +101,7 @@
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{uri}} - {{method}}",
+          "legendFormat": "{{uri}}({{method}}) - {{status}}",
           "refId": "A"
         }
       ],
@@ -228,8 +149,43 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                35
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "Errors alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
@@ -240,13 +196,13 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
-        "w": 7,
-        "x": 0,
-        "y": 8
+        "h": 6,
+        "w": 5,
+        "x": 19,
+        "y": 0
       },
       "hiddenSeries": false,
-      "id": 10,
+      "id": 22,
       "legend": {
         "avg": false,
         "current": false,
@@ -256,7 +212,7 @@
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
@@ -274,15 +230,26 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (uri,method) (rate(http_server_requests_seconds_sum{service=\"hw03-prometheus-ms-arch-2021-03\", uri=~\"/user.*\"}[1m]))",
+          "expr": "sum by (status, uri, method) (increase(http_server_requests_seconds_count{status=\"500\", uri=~\"/user.*\"}[1m]))",
           "interval": "",
-          "legendFormat": "{{uri}} - {{method}}",
+          "legendFormat": "{{uri}}({{method}}) - {{status}}",
           "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 35,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
       "timeRegions": [],
-      "title": "Latency - total",
+      "timeShift": null,
+      "title": "Errors",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -332,106 +299,13 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
-        "w": 17,
-        "x": 7,
-        "y": 8
-      },
-      "hiddenSeries": false,
-      "id": 8,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "rate(http_server_requests_seconds_sum{service=\"hw03-prometheus-ms-arch-2021-03\", uri=~\"/user.*\"}[1m])",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "{{uri}} - {{method}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Latency  - for each method",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 7,
+        "h": 8,
+        "w": 6,
         "x": 0,
-        "y": 15
+        "y": 6
       },
       "hiddenSeries": false,
-      "id": 12,
+      "id": 18,
       "legend": {
         "avg": false,
         "current": false,
@@ -459,10 +333,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.5, (sum by (uri,method) (rate(http_server_requests_seconds_max{service=\"hw03-prometheus-ms-arch-2021-03\", uri=~\"/user.*\"}[1m]))))",
-          "instant": false,
+          "expr": "sum by (uri, method, status) (rate(http_server_requests_seconds_count{service=\"hw03-prometheus-ms-arch-2021-03\", uri=~\"/user.*\"}[1m])) ",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{uri}}({{method}}) - {{status}}",
           "refId": "A"
         }
       ],
@@ -470,7 +343,257 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Latency - Quantile",
+      "title": "RPS",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 6
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (status, uri, method) (rate(http_server_requests_seconds_count{uri=~\"/user.*\"}[1m]))",
+          "interval": "",
+          "legendFormat": "{{uri}}({{method}}) - {{status}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "RPS - status",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                150
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "Latency - hw03-prometheus alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "hiddenSeries": false,
+      "id": 20,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "histogram_quantile(0.5, \r\n      sum by (le, status, uri, method) \r\n         (rate(http_server_requests_seconds_bucket{uri=~\"/user.*\"}[1m]))\r\n) * 1000\r\n",
+          "interval": "",
+          "legendFormat": "{{uri}}({{method}}) - {{status}} - 0.5",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, \r\n      sum by (le, status, uri, method) \r\n         (rate(http_server_requests_seconds_bucket{uri=~\"/user.*\"}[1m]))\r\n) * 1000\r\n",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{uri}}({{method}}) - {{status}} -0.95",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, \r\n      sum by (le, status, uri, method) \r\n         (rate(http_server_requests_seconds_bucket{uri=~\"/user.*\"}[1m]))\r\n) * 1000\r\n",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{uri}}({{method}}) - {{status}} -0.99",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 150,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Latency - hw03-prometheus",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -508,6 +631,7 @@
       }
     }
   ],
+  "refresh": false,
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
