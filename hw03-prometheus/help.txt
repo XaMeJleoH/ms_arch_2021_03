@@ -95,7 +95,7 @@ helm repo add stable https://charts.helm.sh/stable
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install prom prometheus-community/kube-prometheus-stack -f prometheus.yaml --atomic
-helm install nginx ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic
+helm install monitoring ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic
 helm upgrade nginx stable/nginx-ingress -f nginx-ingress.yaml
 helm install hw03-prometheus ./hw03-prometheus-chart
 helm install postgres ./postgres-chart
@@ -109,11 +109,16 @@ helm uninstall hw03-prometheus
 helm uninstall postgres
 kubectl delete -A ValidatingWebhookConfiguration nginx-ingress-nginx-admission
 kubectl delete -A ValidatingWebhookConfiguration prom-kube-prometheus-stack-admission
+minikube addons disable ingress
 
 ** Если проблемы с ингресс, то попробовать удалить
 kubectl get validatingwebhookconfigurations  --all-namespaces
 kubectl delete -A ValidatingWebhookConfiguration nginx-ingress-nginx-admission
 kubectl delete -A ValidatingWebhookConfiguration prom-kube-prometheus-stack-admission
+kubectl get pods -n ingress-nginx
+kubectl delete namespace ingress-nginx
+kubectl delete clusterrolebinding ingress-nginx
+
 
 kubectl get pods -l app.kubernetes.io/instance=hw03-prometheus
 
