@@ -1,10 +1,8 @@
 Let's to start:
-minikube start --driver=virtualbox --no-vtx-check --cni=flannel
-* minikube start --driver=virtualbox --no-vtx-check  --cpus=4 --memory=8g --cni=flannel --kubernetes-version="v1.19.0" --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass, DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset --extra-config=apiserver.authorization-mode=Node,RBAC
-* minikube start --driver=virtualbox --no-vtx-check  --cpus=4 --memory=8g --cni=flannel --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass, DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset --extra-config=apiserver.authorization-mode=Node,RBAC
+minikube start --driver=virtualbox --no-vtx-check --cni=flannel --cpus=2 --memory=4g
 minikube ip
 set DOCKER_TLS_VERIFY=1
-set DOCKER_HOST=tcp://192.168.99.103:2376
+set DOCKER_HOST=tcp://192.168.99.106:2376
 set DOCKER_CERT_PATH=C:\Users\haazz\.minikube\certs
 set MINIKUBE_ACTIVE_DOCKERD=minikube
 
@@ -44,6 +42,22 @@ kubectl get po -n kiali -l app.kubernetes.io/name=kiali
 kubectl logs -n kiali kiali-5dd4d48b6d-n9gj4 -p -c istio-proxy
 kubectl get ev -n kiali
 istioctl version
+minikube service -n kiali kiali-nodeport
 
 kubectl get pods --all-namespaces
+
+helm install hw04-istio ./hw04-istio-chart
+helm install postgres ./postgres-chart
+
+kubectl apply -f echoserver.yaml
+
+helm uninstall hw04-istio
+
+curl $(minikube service hw04-istio-ms-arch-2021-03 --url) -usebasicparsing
+curl $(minikube service hw04-istio2-ms-arch-2021-03 --url) -usebasicparsing
+
+curl "$(minikube service hw04-istio2-ms-arch-2021-03 --url)?url=http://hw04-istio-ms-arch-2021-03" -usebasicparsing
+kubectl apply -f manage-traffic/proxy-app-sidecar-disable.yaml
+
+
 

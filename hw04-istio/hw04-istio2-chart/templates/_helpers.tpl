@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "hw04-istio-chart.name" -}}
+{{- define "hw04-istio2-chart.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "hw04-istio-chart.fullname" -}}
+{{- define "hw04-istio2-chart.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "hw04-istio-chart.chart" -}}
+{{- define "hw04-istio2-chart.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "hw04-istio-chart.labels" -}}
-helm.sh/chart: {{ include "hw04-istio-chart.chart" . }}
-{{ include "hw04-istio-chart.selectorLabels" . }}
+{{- define "hw04-istio2-chart.labels" -}}
+helm.sh/chart: {{ include "hw04-istio2-chart.chart" . }}
+{{ include "hw04-istio2-chart.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,18 +45,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "hw04-istio-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "hw04-istio-chart.name" . }}
+{{- define "hw04-istio2-chart.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "hw04-istio2-chart.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-app: {{ include "hw04-istio-chart.fullname" . }}
+app: {{ include "hw04-istio2-chart.fullname" . }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "hw04-istio-chart.serviceAccountName" -}}
+{{- define "hw04-istio2-chart.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "hw04-istio-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "hw04-istio2-chart.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
