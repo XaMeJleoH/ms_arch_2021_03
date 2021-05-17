@@ -1,0 +1,49 @@
+Let's to start:
+minikube start --driver=virtualbox --no-vtx-check --cni=flannel
+* minikube start --driver=virtualbox --no-vtx-check  --cpus=4 --memory=8g --cni=flannel --kubernetes-version="v1.19.0" --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass, DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset --extra-config=apiserver.authorization-mode=Node,RBAC
+* minikube start --driver=virtualbox --no-vtx-check  --cpus=4 --memory=8g --cni=flannel --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass, DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset --extra-config=apiserver.authorization-mode=Node,RBAC
+minikube ip
+set DOCKER_TLS_VERIFY=1
+set DOCKER_HOST=tcp://192.168.99.103:2376
+set DOCKER_CERT_PATH=C:\Users\haazz\.minikube\certs
+set MINIKUBE_ACTIVE_DOCKERD=minikube
+
+kubectl apply -f namespaces.yaml
+
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+helm repo update
+
+helm install --version "2.19.0" -n jaeger-operator -f jaeger/operator-values.yaml jaeger-operator jaegertracing/jaeger-operator
+kubectl apply -f jaeger/jaeger.yaml
+kubectl get po -n jaeger -l app.kubernetes.io/instance=jaeger
+minikube service -n jaeger jaeger-query-nodeport
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+* helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+
+helm install --version "13.7.2" -n monitoring -f prometheus/operator-values.yaml prometheus prometheus-community/kube-prometheus-stack
+kubectl get po -n monitoring
+kubectl apply -f prometheus/monitoring-nodeport.yaml
+minikube service -n monitoring prometheus-grafana-nodeport
+minikube service -n monitoring prom-prometheus-nodeport
+
+istioctl operator init --watchedNamespaces istio-system --operatorNamespace istio-operator
+kubectl apply -f istio/istio.yaml
+* kubectl delete -f istio/istio.yaml
+kubectl get all -n istio-system -l istio.io/rev=default
+
+helm repo add kiali https://kiali.org/helm-charts
+helm repo update
+helm install --version "1.33.1" -n kiali-operator kiali-operator kiali/kiali-operator
+* helm uninstall --namespace kiali-operator kiali-operator
+* kubectl delete -f kiali/kiali.yaml
+kubectl apply -f kiali/kiali.yaml
+kubectl get po -n kiali -l app.kubernetes.io/name=kiali
+kubectl logs -n kiali kiali-5dd4d48b6d-n9gj4 -p -c istio-proxy
+kubectl get ev -n kiali
+istioctl version
+
+kubectl get pods --all-namespaces
+

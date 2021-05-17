@@ -1,0 +1,21 @@
+{{- if .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "hw04-istio-chart.fullname" . }}
+  labels:
+    {{- include "hw04-istio-chart.labels" . | nindent 4 }}
+spec:
+  jobLabel: {{ include "hw04-istio-chart.fullname" . }}
+  namespaceSelector:
+    matchNames:
+      - "{{ $.Release.Namespace }}"
+  selector:
+    matchLabels:
+      {{- include "hw04-istio-chart.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - interval: 15s
+      port: web
+      #path: /metrics
+      path: {{ .Values.metrics.path }}
+  {{- end }}

@@ -24,6 +24,7 @@
         <module>hw01-kube</module>
         <module>hw02-crud</module>
         <module>hw03-prometheus</module>
+        <module>hw04-istio</module>
     </modules>
 
     <parent>
