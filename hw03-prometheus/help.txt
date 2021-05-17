@@ -1,0 +1,140 @@
+Let's to start:
+
+*minikube start;
+minikube start --driver=virtualbox --no-vtx-check
+minikube ip
+set DOCKER_TLS_VERIFY=1
+set DOCKER_HOST=tcp://192.168.99.101:2376
+set DOCKER_CERT_PATH=C:\Users\haazz\.minikube\certs
+set MINIKUBE_ACTIVE_DOCKERD=minikube
+docker ps
+docker login
+docker build -t hw01-kube:v1 .
+kubectl apply -f deployment.yml -f service.yml
+docker build -t hw01-kube:v2 .
+kubectl set image deployment/ms-arch-2021-03-deployment hw01-kube=hw01-kube:v2 --record
+kubectl rollout history deployment/ms-arch-2021-03-deployment deployment.apps/ms-arch-2021-03-deployment
+kubectl rollout undo deployment ms-arch-2021-03-deployment
+kubectl apply -f deployment.yml -f service.yml
+doskey /History
+-> LoadBalancer
+docker build -t xamejleoh/hw01-kube:0.1 .
+minikube addons enable metallb
+minikube addons configure metallb
+-- Enter Load Balancer Start IP: 192.168.176.130
+-- Enter Load Balancer End IP: 192.168.176.140
+minikube addons enable ingress --alsologtostderr
+kubectl get pods -n ingress-nginx
+*kubectl get pods -n kube-system | grep ingress
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml
+** В случае ошибки, я использовал kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+kubectl get ingress ms-arch-2021-03-ingress
+kubectl describe ingress ms-arch-2021-03-ingress
+
+hw2
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml
+minikube service postgres -n default --url
+    psql -h 127.0.0.1 -p 51510 -U myuser -W myapp
+kubectl delete all --all
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml -f app-config.yml
+docker build -t xamejleoh/hw02-crud:0.1 .
+**docker build -t hw02-crud:0.1 .
+
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+helm install default ./hello-chart --dry-run
+helm uninstall default
+kubectl delete all --all
+
+helm install hw02-crud ./hw02-crud-chart
+helm install postgres ./postgres-chart
+helm install ingress-chart ./ingress-chart
+
+helm uninstall hw02-crud
+helm uninstall postgres
+helm uninstall ingress-chart
+
+
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+minikube addons disable ingress
+kubectl create namespace monitoring
+kubectl config set-context --current --namespace=monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+helm install prom prometheus-community/kube-prometheus-stack -f prometheus.yaml --atomic
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install nginx ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic
+kubectl port-forward service/prom-grafana 9000:80
+* http://localhost:9000/
+** login admin:prom-operator
+* download from json https://grafana.com/grafana/dashboards/11074
+* import json to grafana
+kubectl port-forward service/prom-kube-prometheus-stack-prometheus 9090
+* http://localhost:9090/
+* kubectl apply -f postgresql.yaml
+* minikube service postgres -n monitoring --url
+* http://192.168.99.101:32174
+* psql -h 192.168.99.101 -p 32174 -U myuser -W myapp
+docker build -t xamejleoh/hw03-prometheus:0.1 .
+
+kubectl get servicemonitors.monitoring.coreos.com
+kubectl describe servicemonitors.monitoring.coreos.com  postgres
+
+
+* В hw03-prometheus добавлен мониторинг
+minikube addons disable ingress
+kubectl create namespace monitoring
+kubectl config set-context --current --namespace=monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install prom prometheus-community/kube-prometheus-stack -f prometheus.yaml --atomic
+helm install monitoring ingress-nginx/ingress-nginx -f nginx-ingress.yaml --atomic
+helm upgrade nginx stable/nginx-ingress -f nginx-ingress.yaml
+helm install hw03-prometheus ./hw03-prometheus-chart
+helm install postgres ./postgres-chart
+
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+helm uninstall prom prometheus-community/kube-prometheus-stack
+helm uninstall nginx ingress-nginx/ingress-nginx
+helm uninstall hw03-prometheus
+helm uninstall postgres
+kubectl delete -A ValidatingWebhookConfiguration nginx-ingress-nginx-admission
+kubectl delete -A ValidatingWebhookConfiguration prom-kube-prometheus-stack-admission
+minikube addons disable ingress
+
+** Если проблемы с ингресс, то попробовать удалить
+kubectl get validatingwebhookconfigurations  --all-namespaces
+kubectl delete -A ValidatingWebhookConfiguration nginx-ingress-nginx-admission
+kubectl delete -A ValidatingWebhookConfiguration prom-kube-prometheus-stack-admission
+kubectl get pods -n ingress-nginx
+kubectl delete namespace ingress-nginx
+kubectl delete clusterrolebinding ingress-nginx
+
+
+kubectl get pods -l app.kubernetes.io/instance=hw03-prometheus
+
+rate(http_server_requests_seconds_count{endpoint="/db"}[1m])
+rate(http_server_requests_seconds_count{service="hw03-prometheus-ms-arch-2021-03", status=~"5.."}[5m])
+sum(rate(app_request_count_total{service="hw03-prometheus-ms-arch-2021-03"}[1m]))
+rate(http_server_requests_seconds_count{endpoint="/user.*"}[1m])
+sum(rate(http_server_requests_seconds_count{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))
+rate(app_request_latency_seconds_bucket{exported_endpoint="/db"}[1m])
+rate(http_server_requests_seconds_sum{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m])
+sum by (le) (rate(http_server_requests_seconds_bucket{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))
+histogram_quantile(0.5, (sum by (le) (rate(http_server_requests_seconds_bucket{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*"}[1m]))))
+
+sum by (le) (rate(app_request_latency_seconds_bucket{exported_endpoint="/db"}[1m]))
+
+histogram_quantile(0.5, (sum by (le) (rate(app_request_latency_seconds_bucket{exported_endpoint="/db"}[1m]))))
+sum(rate(http_server_requests_seconds_count{service="hw03-prometheus-ms-arch-2021-03", uri=~"/user.*", status=~"5.."}[1m]))
+
+sum(increase(http_server_requests_seconds_count{status=~"5.+"}[1m]))
