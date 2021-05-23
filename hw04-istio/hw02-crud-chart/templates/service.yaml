@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "hw04-istio-chart.fullname" . }}
+  name: {{ include "hw02-crud-chart.fullname" . }}
   labels:
-    {{- include "hw04-istio-chart.labels" . | nindent 4 }}
+    {{- include "hw02-crud-chart.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: web
   selector:
-    {{- include "hw04-istio-chart.selectorLabels" . | nindent 4 }}
+    {{- include "hw02-crud-chart.selectorLabels" . | nindent 4 }}

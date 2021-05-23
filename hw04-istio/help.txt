@@ -2,7 +2,7 @@ Let's to start:
 minikube start --driver=virtualbox --no-vtx-check --cni=flannel --cpus=2 --memory=4g
 minikube ip
 set DOCKER_TLS_VERIFY=1
-set DOCKER_HOST=tcp://192.168.99.106:2376
+set DOCKER_HOST=tcp://192.168.99.107:2376
 set DOCKER_CERT_PATH=C:\Users\haazz\.minikube\certs
 set MINIKUBE_ACTIVE_DOCKERD=minikube
 
@@ -24,6 +24,7 @@ helm repo update
 helm install --version "13.7.2" -n monitoring -f prometheus/operator-values.yaml prometheus prometheus-community/kube-prometheus-stack
 kubectl get po -n monitoring
 kubectl apply -f prometheus/monitoring-nodeport.yaml
+* helm uninstall --namespace monitoring prometheus
 minikube service -n monitoring prometheus-grafana-nodeport
 minikube service -n monitoring prom-prometheus-nodeport
 
@@ -48,10 +49,14 @@ kubectl get pods --all-namespaces
 
 helm install hw04-istio ./hw04-istio-chart
 helm install postgres ./postgres-chart
+helm install hw04-istio2 ./hw04-istio2-chart
+helm install hw02-crud ./hw02-crud-chart
 
 kubectl apply -f echoserver.yaml
 
 helm uninstall hw04-istio
+helm uninstall hw04-istio2
+helm uninstall postgres
 
 curl $(minikube service hw04-istio-ms-arch-2021-03 --url) -usebasicparsing
 curl $(minikube service hw04-istio2-ms-arch-2021-03 --url) -usebasicparsing
@@ -61,3 +66,35 @@ kubectl apply -f manage-traffic/proxy-app-sidecar-disable.yaml
 
 kubectl get po hw04-istio2-ms-arch-2021-03-7d6f47868b-gbljj -o yaml | less
 
+
+curl "$(minikube service hw04-istio-ms-arch-2021-03 --url)/proxy/?url=$(minikube service hw02-crud-ms-arch-2021-03 --url)" -usebasicparsing
+
+curl $(minikube service hw02-crud-ms-arch-2021-03 --url) -usebasicparsing
+curl "$(minikube service hw04-istio-ms-arch-2021-03 --url)?url=http://ya.ru" -usebasicparsing -v
+
+docker build -t xamejleoh/hw04-istio:0.2 .
+
+kubectl get pods -A
+# Посмотреть в том числе и ингресс
+kubectl get svc -n istio-system
+kubectl get gateway --all-namespaces
+kubectl get ingress --all-namespaces
+
+
+kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath='{.items[0].status.hostIP}'
+** Берем nodePort
+            {
+                "name": "http2",
+                "nodePort": 31743,
+                "port": 80,
+                "protocol": "TCP",
+                "targetPort": 8080
+            },
+
+*
+kubectl get pods --selector=version=0.1
+
+kubectl apply -f app/deployment.yml -f app/service.yml
+kubectl delete -f app/deployment.yml -f app/service.yml
+
+istioctl x describe pod hw04-istio-ms-arch-2021-03-1-6dfbbcddc7-9hgr4
