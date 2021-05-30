@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Sidecar
+metadata:
+  name: hw04-istio2-ms-arch-2021-03
+  namespace: default
+spec:
+  egress:
+    - hosts:
+        - "default/echoserver.default.svc.cluster.local" # Разрешаем сервису ходить к echoservice
+  outboundTrafficPolicy:
+    mode: REGISTRY_ONLY
+  workloadSelector:
+    labels:
+      app: hw04-istio2-ms-arch-2021-03

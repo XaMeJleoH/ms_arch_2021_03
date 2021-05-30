@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hw02-crud-chart.fullname" . }}
+  labels:
+    {{- include "hw02-crud-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "hw02-crud-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "hw02-crud-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "xamejleoh/{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          ports:
+            - name: web
+              containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: ms-arch-2021-03-hw02-config
+            - secretRef:
+                name: ms-arch-2021-03-hw02-secret
