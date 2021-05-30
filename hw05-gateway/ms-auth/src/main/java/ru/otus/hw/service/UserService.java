@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import ru.otus.hw.mapper.UserMapping;
 import ru.otus.hw.model.User;
 import ru.otus.hw.model.UserDTO;
+import ru.otus.hw.model.UserSessionDTO;
 import ru.otus.hw.repository.UserRepository;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -31,7 +33,7 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        Optional<UserDTO> userDTOOptional = userRepository.findUserDTOByUsername(user.getUsername());
+        Optional<UserDTO> userDTOOptional = userRepository.findByUsername(user.getUsername());
         if (userDTOOptional.isPresent()) {
             return UserMapping.mapper.userDTOToUser(userDTOOptional.get());
         }

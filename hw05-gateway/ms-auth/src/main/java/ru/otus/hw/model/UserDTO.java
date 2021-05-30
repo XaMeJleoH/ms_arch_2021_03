@@ -33,7 +33,6 @@ public class UserDTO {
     @Column(name = "PASSWORD")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_session_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "userDTO")
     private UserSessionDTO userSessionDTO;
 }

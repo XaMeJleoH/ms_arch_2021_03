@@ -1,0 +1,29 @@
+###
+
+GET http://localhost/hw/putHeaders
+
+###
+
+GET {{ proxy-app }}
+
+###
+GET http://ya.ru
+
+###
+GET http://192.168.99.106:32551/?url=http://192.168.99.106:31992/
+###
+
+GET http://192.168.99.106:31992/
+###
+GET http://192.168.99.106:32551/
+###
+GET {{ hw04-istio2-ms-arch-2021-03 }}?url=http://hw04-istio-ms-arch-2021-03
+
+###
+
+GET {{ proxy-app }}?url=http://echoserver
+X-AUTH-TOKEN: token
+
+###
+
+GET {{ proxy-app }}?url=http://echoserver/error?times=3

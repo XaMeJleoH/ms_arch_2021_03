@@ -3,6 +3,7 @@ package ru.otus.hw.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,14 @@ public class KubeController {
     @GetMapping(name = "/", produces = "application/json")
     public String getVersion() {
         return String.format("Hello, nice to meet you. Image from dockerHub. applicationId=%s", this.applicationContext.getApplicationName());
+    }
+
+    @GetMapping("/putHeaders")
+    public ResponseEntity<String> putHeaders(
+            @RequestHeader Map<String, String> headers) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("X-UserId", "WTF");
+        return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.CREATED);
     }
 
     @GetMapping("/listHeaders")

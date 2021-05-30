@@ -23,7 +23,7 @@ public class UserDTODetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserDTO> userDTOOptional = userRepository.findUserDTOByUsername(username);
+        Optional<UserDTO> userDTOOptional = userRepository.findByUsername(username);
 
         if(userDTOOptional.isEmpty()) {
             log.warn("User is not found. User name ={}", username);

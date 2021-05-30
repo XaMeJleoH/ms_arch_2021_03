@@ -12,7 +12,10 @@
             <column autoIncrement="true" name="id" type="bigserial">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="cookie" type="varchar(255)">
+            <column name="user_id" type="bigserial">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="session_id" type="uuid">
                 <constraints nullable="true" unique="true"/>
             </column>
         </createTable>
