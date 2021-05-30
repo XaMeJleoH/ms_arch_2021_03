@@ -8,5 +8,6 @@
 
     <include file="liquibase/changelog/v-1.0/create-schema-hw.xml"/>
     <include file="liquibase/changelog/v-1.0/create-table-user.xml"/>
+    <include file="liquibase/changelog/v-1.0/create-table-user-session.xml"/>
 
 </databaseChangeLog>
