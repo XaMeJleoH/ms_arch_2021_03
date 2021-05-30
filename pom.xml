@@ -25,6 +25,7 @@
         <module>hw02-crud</module>
         <module>hw03-prometheus</module>
         <module>hw04-istio</module>
+        <module>hw05-gateway</module>
     </modules>
 
     <parent>
