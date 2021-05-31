@@ -24,7 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class AuthService {
-    public static final String SESSION_ID = "session_id";
+    private static final String SESSION_ID = "session_id";
     private final UserRepository userRepository;
     private final UserSessionRepository userSessionRepository;
     private final PasswordEncoder passwordEncoder;
@@ -50,6 +50,7 @@ public class AuthService {
 
     private void setCookie(HttpServletResponse response, UUID sessionId) {
         Cookie cookie = new Cookie("SESSION_ID", sessionId.toString());
+        cookie.setPath("/");
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
     }

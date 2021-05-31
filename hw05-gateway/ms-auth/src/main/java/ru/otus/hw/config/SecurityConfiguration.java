@@ -16,6 +16,16 @@ import ru.otus.hw.service.UserDTODetailsService;
 @EnableConfigurationProperties
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/auth/**").not().fullyAuthenticated()
+                .anyRequest().authenticated()
+                .and().httpBasic();
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

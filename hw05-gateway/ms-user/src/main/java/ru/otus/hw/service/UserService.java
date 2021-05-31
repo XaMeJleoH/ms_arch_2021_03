@@ -10,6 +10,7 @@ import ru.otus.hw.model.User;
 import ru.otus.hw.model.UserDTO;
 import ru.otus.hw.repository.UserRepository;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -19,23 +20,22 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
-    public User getUser(Integer userId) {
+    public User getUser(Integer userId, Map<String, String> headers) {
+        checkUser(userId, headers);
         UserDTO userDTO = userRepository.findById(userId).orElse(null);
         return UserMapping.mapper.userDTOToUser(userDTO);
     }
 
-    public User createUser(User user) {
-        Optional<UserDTO> userDTOOptional = userRepository.findByUsername(user.getUsername());
-        if (userDTOOptional.isPresent()) {
-            return UserMapping.mapper.userDTOToUser(userDTOOptional.get());
+    private void checkUser(Integer userId, Map<String, String> headers) {
+        if (!authService.isCorrectUser(userId, headers)){
+            throw new RuntimeException("Клиент не авторизован или запрашивает не свою информацию");
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UserDTO userDTO = userRepository.save(UserMapping.mapper.userToUserDTO(user));
-        return UserMapping.mapper.userDTOToUser(userDTO);
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user, Map<String, String> headers) {
+        checkUser(user.getId(), headers);
         Optional<UserDTO> userDTOOptional = userRepository.findById(user.getId());
         if (userDTOOptional.isEmpty()) {
             return false;
@@ -60,7 +60,8 @@ public class UserService {
         return true;
     }
 
-    public boolean deleteUser(Integer userId) {
+    public boolean deleteUser(Integer userId, Map<String, String> headers) {
+        checkUser(userId, headers);
         Optional<UserDTO> userDTOOptional = userRepository.findById(userId);
         if (userDTOOptional.isEmpty()) {
             return false;
