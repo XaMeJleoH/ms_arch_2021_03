@@ -1,4 +1,4 @@
-package ru.otus.hw.hw.model;
+package ru.otus.hw.model;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package ru.otus.hw.hw.service;
+package ru.otus.hw.service;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,9 @@
-package ru.otus.hw.hw.model;
+package ru.otus.hw.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data

@@ -1,4 +1,4 @@
-package ru.otus.hw.hw.mapper;
+package ru.otus.hw.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

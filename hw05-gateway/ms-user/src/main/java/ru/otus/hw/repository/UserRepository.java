@@ -1,5 +1,4 @@
-package ru.otus.hw.hw.repository;
-
+package ru.otus.hw.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
