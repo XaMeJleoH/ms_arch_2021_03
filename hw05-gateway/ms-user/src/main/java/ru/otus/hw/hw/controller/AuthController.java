@@ -1,4 +1,4 @@
-package ru.otus.hw.controller;
+package ru.otus.hw.hw.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import ru.otus.hw.service.AuthService;
 import ru.otus.hw.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.Map;
 
 @RestController
 @Slf4j

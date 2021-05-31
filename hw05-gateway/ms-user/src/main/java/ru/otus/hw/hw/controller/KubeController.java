@@ -1,4 +1,4 @@
-package ru.otus.hw.controller;
+package ru.otus.hw.hw.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
