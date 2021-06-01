@@ -159,8 +159,12 @@ https://github.com/kubernetes/minikube/issues/8756
 docker build -t xamejleoh/hw05-gateway-auth:0.1 .
 docker build -t xamejleoh/hw05-gateway-user:0.1 .
 
-helm install hw03-prometheus ./hw03-prometheus-chart
+helm install hw05-gateway-auth ./kuber/hw05-gateway-auth-chart
+helm install hw05-gateway-user ./kuber/hw05-gateway-user-chart
 helm install postgres ./kuber/postgres-chart
+helm install ingress ./kuber/ingress-chart
+
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
 * minikube service postgres -n default --url
 * http://192.168.99.108:31516

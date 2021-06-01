@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "hw03-prometheus-chart.name" -}}
+{{- define "hw05-gateway-auth-chart.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "hw03-prometheus-chart.fullname" -}}
+{{- define "hw05-gateway-auth-chart.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "hw03-prometheus-chart.chart" -}}
+{{- define "hw05-gateway-auth-chart.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "hw03-prometheus-chart.labels" -}}
-helm.sh/chart: {{ include "hw03-prometheus-chart.chart" . }}
-{{ include "hw03-prometheus-chart.selectorLabels" . }}
+{{- define "hw05-gateway-auth-chart.labels" -}}
+helm.sh/chart: {{ include "hw05-gateway-auth-chart.chart" . }}
+{{ include "hw05-gateway-auth-chart.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "hw03-prometheus-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "hw03-prometheus-chart.name" . }}
+{{- define "hw05-gateway-auth-chart.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "hw05-gateway-auth-chart.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "hw03-prometheus-chart.serviceAccountName" -}}
+{{- define "hw05-gateway-auth-chart.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "hw03-prometheus-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "hw05-gateway-auth-chart.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hw03-prometheus-chart.fullname" . }}
+  name: {{ include "hw05-gateway-auth-chart.fullname" . }}
   labels:
-    {{- include "hw03-prometheus-chart.labels" . | nindent 4 }}
+    {{- include "hw05-gateway-auth-chart.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "hw03-prometheus-chart.selectorLabels" . | nindent 6 }}
+      {{- include "hw05-gateway-auth-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "hw03-prometheus-chart.selectorLabels" . | nindent 8 }}
+        {{- include "hw05-gateway-auth-chart.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
     spec:
