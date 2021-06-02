@@ -21,7 +21,7 @@ spec:
           image: "xamejleoh/{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           ports:
             - name: web
-              containerPort: 80
+              containerPort: 8080
           envFrom:
             - configMapRef:
                 name: ms-arch-2021-03-config

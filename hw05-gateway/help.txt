@@ -164,6 +164,11 @@ helm install hw05-gateway-user ./kuber/hw05-gateway-user-chart
 helm install postgres ./kuber/postgres-chart
 helm install ingress ./kuber/ingress-chart
 
+helm uninstall hw05-gateway-auth
+helm uninstall hw05-gateway-user
+helm uninstall postgres
+helm uninstall ingress
+
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
 * minikube service postgres -n default --url

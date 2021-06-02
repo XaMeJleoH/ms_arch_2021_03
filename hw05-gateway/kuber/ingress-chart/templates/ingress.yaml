@@ -4,13 +4,13 @@ metadata:
   name: {{ .Values.ingressUserName }}
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    #nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
     - host: {{ .Values.ingressHost }}
       http:
         paths:
-          - path: /otusapp/makhanov/(.+)
+          - path: /user
             pathType: Prefix
             backend:
               service:
@@ -24,7 +24,7 @@ metadata:
   name: {{ .Values.ingressAuthName }}
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    #nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
     - host: {{ .Values.ingressHost }}
@@ -35,26 +35,26 @@ spec:
                 name: {{ .Values.ingressAuthServiceName }}
                 port:
                   number: 9000
-            path: /otusapp/makhanov/auth/registration
+            path: /auth/registration
             pathType: Prefix
           - backend:
               service:
                 name: {{ .Values.ingressAuthServiceName }}
                 port:
                   number: 9000
-            path: /otusapp/makhanov/auth/login
+            path: /auth/login
             pathType: Prefix
           - backend:
               service:
                 name: {{ .Values.ingressAuthServiceName }}
                 port:
                   number: 9000
-            path: /otusapp/makhanov/auth/auth
+            path: /auth/auth
             pathType: Prefix
           - backend:
               service:
                 name: {{ .Values.ingressAuthServiceName }}
                 port:
                   number: 9000
-            path: /otusapp/makhanov/auth/logout
+            path: /auth/logout
             pathType: Prefix
