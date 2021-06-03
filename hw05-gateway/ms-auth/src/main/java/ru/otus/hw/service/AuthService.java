@@ -43,7 +43,7 @@ public class AuthService {
             SESSION_LIST.put(sessionId, userSessionDTO);
             userSessionRepository.save(userSessionDTO);
             setCookie(httpServletResponse, sessionId);
-            return new ResponseEntity<String>("Hello World", HttpStatus.CREATED);
+            return new ResponseEntity<String>(String.format("Клиент=%s успешно залогинился", user.getUsername()), HttpStatus.CREATED);
         }
         return new ResponseEntity<String>("Не удалось залогинитьсяя", HttpStatus.UNAUTHORIZED);
     }
@@ -58,15 +58,17 @@ public class AuthService {
     public ResponseEntity<String> auth(Map<String, String> headers) {
         String sessionId = getSessionId(headers);
         if (StringUtils.isBlank(sessionId)) {
+            log.warn("Не удалось определить сессию");
             return new ResponseEntity<String>("Не удалось определить сессию", HttpStatus.UNAUTHORIZED);
         }
         UUID sessionUUID = UUID.fromString(sessionId);
         UserSessionDTO userSessionDTO = SESSION_LIST.get(sessionUUID);
         if (userSessionDTO == null) {
+            log.warn("Не удалось авторизоваться, не удалось найти нужную сессию");
             return new ResponseEntity<String>("Не удалось авторизоваться, не удалось найти нужную сессию", HttpStatus.UNAUTHORIZED);
         }
-
-        return new ResponseEntity<String>("Hello !!! World", HttpStatus.OK);
+        log.info("Успешно авторизовался, sessionId={}", sessionUUID);
+        return new ResponseEntity<String>(String.format("Клиент=%s успешно авторизовался", userSessionDTO.getUserDTO().getUsername()), HttpStatus.OK);
     }
 
     private String getSessionId(Map<String, String> headers) {

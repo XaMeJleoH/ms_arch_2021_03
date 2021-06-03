@@ -5,6 +5,8 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     #nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/auth-url: "http://$host/auth/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "http://$host/auth/signin"
 spec:
   rules:
     - host: {{ .Values.ingressHost }}
@@ -57,4 +59,11 @@ spec:
                 port:
                   number: 9000
             path: /auth/logout
+            pathType: Prefix
+          - backend:
+              service:
+                name: {{ .Values.ingressAuthServiceName }}
+                port:
+                  number: 9000
+            path: /auth/signin
             pathType: Prefix

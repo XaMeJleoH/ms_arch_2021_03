@@ -169,6 +169,7 @@ helm uninstall hw05-gateway-user
 helm uninstall postgres
 helm uninstall ingress
 
+kubectl get validatingwebhookconfigurations  --all-namespaces
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
 * minikube service postgres -n default --url

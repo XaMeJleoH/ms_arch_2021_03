@@ -2,6 +2,7 @@ package ru.otus.hw.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.model.User;
@@ -25,7 +26,7 @@ public class AuthController {
         return authService.login(user, httpServletResponse);
     }
 
-    @PostMapping("/auth")
+    @GetMapping("/auth")
     public ResponseEntity<String> auth(@RequestHeader Map<String, String> headers) {
         return authService.auth(headers);
     }
@@ -41,6 +42,11 @@ public class AuthController {
     User createUser(@RequestBody User user) {
         log.info("Try to create User={}", user);
         return userService.createUser(user);
+    }
+
+    @GetMapping("/signin")
+    public ResponseEntity<String> signin() {
+        return new ResponseEntity<String>("Пожалуйста, авторизуйтесь", HttpStatus.UNAUTHORIZED);
     }
 
 }
