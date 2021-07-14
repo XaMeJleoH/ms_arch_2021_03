@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hw05-gateway-auth-chart.fullname" . }}
+  labels:
+    {{- include "hw05-gateway-auth-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "hw05-gateway-auth-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "hw05-gateway-auth-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "xamejleoh/{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: Always
+          ports:
+            - name: web
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: ms-arch-2021-03-config
+            - secretRef:
+                name: ms-arch-2021-03-secret

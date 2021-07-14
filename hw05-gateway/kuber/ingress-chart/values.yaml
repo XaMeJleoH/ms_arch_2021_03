@@ -1,0 +1,11 @@
+replicaCount: 1
+
+ingressUserName: ms-arch-2021-03-user-ingress
+ingressAuthName: ms-arch-2021-03-auth-ingress
+ingressHost: arch.homework
+ingressUserServiceName: hw05-gateway-user-ms-arch-2021-03
+ingressAuthServiceName: hw05-gateway-auth-ms-arch-2021-03
+
+service:
+  type: NodePort
+  port: 9000
