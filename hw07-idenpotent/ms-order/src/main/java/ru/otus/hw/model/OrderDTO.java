@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "order", schema = "hw")
+@Table(name = "order", schema = "ms-order")
 public class OrderDTO {
 
     @Id

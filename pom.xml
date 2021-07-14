@@ -26,6 +26,7 @@
         <module>hw03-prometheus</module>
         <module>hw04-istio</module>
         <module>hw05-gateway</module>
+        <module>hw07-idenpotent</module>
     </modules>
 
     <parent>
