@@ -8,15 +8,15 @@
 
     <changeSet author="XaMeJleoH" id="1">
         <comment>Create table for User</comment>
-        <createTable tableName="user" schemaName="ms-order">
+        <createTable tableName="order" schemaName="ms_order">
             <column autoIncrement="true" name="id" type="bigserial">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="user_name" type="varchar(255)"/>
-            <column name="first_name" type="varchar(255)"/>
-            <column name="last_name" type="varchar(255)"/>
-            <column name="email" type="varchar(255)"/>
-            <column name="phone" type="varchar(255)"/>
+            <column name="user_id" type="bigserial">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="order_name" type="varchar(255)"/>
+            <column name="amount" type="numeric"/>
         </createTable>
     </changeSet>
 

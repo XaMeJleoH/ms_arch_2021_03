@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "user", schema = "ms-user")
+@Table(name = "user", schema = "ms_user")
 public class UserDTO {
 
     @Id
