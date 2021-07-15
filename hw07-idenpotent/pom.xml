@@ -16,7 +16,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>ms-user</module>
         <module>ms-order</module>
     </modules>
 
@@ -152,6 +151,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.version}</version>
         </dependency>
 
     </dependencies>

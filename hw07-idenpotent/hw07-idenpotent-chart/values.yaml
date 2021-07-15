@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: hw02-crud
+  repository: hw07-idenpotent
 
 service:
   type: NodePort

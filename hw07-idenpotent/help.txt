@@ -54,3 +54,12 @@ helm install ingress-chart ./ingress-chart
 helm uninstall hw02-crud
 helm uninstall postgres
 helm uninstall ingress-chart
+
+
+helm install hw07-idenpotent ./hw07-idenpotent-chart
+helm install postgres ./postgres-chart
+helm install ingress-chart ./ingress-chart
+
+helm uninstall hw02-crud
+helm uninstall postgres
+helm uninstall ingress-chart

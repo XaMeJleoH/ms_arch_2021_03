@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hw02-crud-chart.fullname" . }}
+  name: {{ include "hw07-idenpotent.fullname" . }}
   labels:
-    {{- include "hw02-crud-chart.labels" . | nindent 4 }}
+    {{- include "hw07-idenpotent.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "hw02-crud-chart.selectorLabels" . | nindent 6 }}
+      {{- include "hw07-idenpotent.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "hw02-crud-chart.selectorLabels" . | nindent 8 }}
+        {{- include "hw07-idenpotent.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
     spec:

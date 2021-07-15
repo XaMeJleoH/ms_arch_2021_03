@@ -66,6 +66,7 @@
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <javax.servlet.version>4.0.1</javax.servlet.version>
         <micrometer.version>1.6.6</micrometer.version>
+        <javax.version>2.0.1.Final</javax.version>
     </properties>
 
     <dependencyManagement>
