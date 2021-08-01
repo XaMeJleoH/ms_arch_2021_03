@@ -1,0 +1,9 @@
+replicaCount: 1
+
+ingressName: ms-arch-2021-03-ingress
+ingressHost: arch.homework
+ingressServiceName: hw07-idenpotent-ms-arch-2021-03
+
+service:
+  type: NodePort
+  port: 9000
