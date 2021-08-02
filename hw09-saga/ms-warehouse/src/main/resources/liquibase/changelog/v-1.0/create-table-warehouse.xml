@@ -15,9 +15,9 @@
             <column name="user_id" type="bigserial">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="orderName" type="varchar(255)"/>
+            <column name="ORDER_NAME" type="varchar(255)"/>
             <column name="success" type="boolean"/>
-            <column name="CANCELED_PAYMENT" type="boolean"/>
+            <column name="CANCELED_RESERVE" type="boolean"/>
         </createTable>
     </changeSet>
 

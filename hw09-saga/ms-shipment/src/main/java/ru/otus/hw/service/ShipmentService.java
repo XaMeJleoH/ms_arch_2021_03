@@ -13,9 +13,9 @@ import ru.otus.hw.repository.ShipmentRepository;
 public class ShipmentService {
     private final ShipmentRepository shipmentRepository;
 
-    public Long reserveShipment(Shipment order) {
-        var shipmentDTO = shipmentRepository.save(createShipmentDTO(order));
-        if (Boolean.FALSE.equals(order.getSuccessReserve())) {
+    public Long reserveShipment(Shipment shipment) {
+        var shipmentDTO = shipmentRepository.save(createShipmentDTO(shipment));
+        if (Boolean.FALSE.equals(shipment.getSuccessReserve())) {
             log.info("Reserve is failed={}", shipmentDTO);
             throw new RuntimeException("Резерв не удался");
         }
@@ -34,11 +34,11 @@ public class ShipmentService {
         return true;
     }
 
-    private ShipmentDTO createShipmentDTO(Shipment order) {
+    private ShipmentDTO createShipmentDTO(Shipment shipment) {
         ShipmentDTO shipmentDTO = new ShipmentDTO();
-        shipmentDTO.setUserId(order.getUserId());
-        shipmentDTO.setAddress(order.getAddress());
-        shipmentDTO.setSuccess(order.getSuccessReserve());
+        shipmentDTO.setUserId(shipment.getUserId());
+        shipmentDTO.setAddress(shipment.getAddress());
+        shipmentDTO.setSuccess(shipment.getSuccessReserve());
         return shipmentDTO;
     }
 }

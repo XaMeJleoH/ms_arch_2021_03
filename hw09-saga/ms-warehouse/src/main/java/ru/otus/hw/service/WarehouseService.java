@@ -13,9 +13,9 @@ import ru.otus.hw.repository.WarehouseRepository;
 public class WarehouseService {
     private final WarehouseRepository warehouseRepository;
 
-    public Long reserve(Warehouse order) {
-        var warehouseDTO = warehouseRepository.save(createWarehouseDTO(order));
-        if (Boolean.FALSE.equals(order.getSuccessReserve())) {
+    public Long reserve(Warehouse warehouse) {
+        var warehouseDTO = warehouseRepository.save(createWarehouseDTO(warehouse));
+        if (Boolean.FALSE.equals(warehouse.getSuccessReserve())) {
             log.info("Reserve is failed={}", warehouseDTO);
             throw new RuntimeException("Резерв не удался");
         }
@@ -34,11 +34,11 @@ public class WarehouseService {
         return true;
     }
 
-    private WarehouseDTO createWarehouseDTO(Warehouse order) {
+    private WarehouseDTO createWarehouseDTO(Warehouse warehouse) {
         WarehouseDTO warehouseDTO = new WarehouseDTO();
-        warehouseDTO.setUserId(order.getUserId());
-        warehouseDTO.setOrderName(order.getOrderName());
-        warehouseDTO.setSuccess(order.getSuccessReserve());
+        warehouseDTO.setUserId(warehouse.getUserId());
+        warehouseDTO.setOrderName(warehouse.getOrderName());
+        warehouseDTO.setSuccess(warehouse.getSuccessReserve());
         return warehouseDTO;
     }
 }
