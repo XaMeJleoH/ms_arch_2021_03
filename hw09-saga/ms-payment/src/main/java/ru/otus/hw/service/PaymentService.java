@@ -74,7 +74,7 @@ public class PaymentService {
 
     public boolean getStatus(Long paymentId) {
         PaymentDTO paymentDTO = getPaymentDTOById(paymentId);
-        return paymentDTO.getCanceledPayment();
+        return paymentDTO.getCanceledPayment() == null || Boolean.FALSE.equals(paymentDTO.getCanceledPayment());
     }
 
     private PaymentDTO getPaymentDTOById(Long paymentId) {

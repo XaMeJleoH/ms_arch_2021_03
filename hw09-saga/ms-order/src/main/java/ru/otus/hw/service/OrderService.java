@@ -58,7 +58,7 @@ public class OrderService {
 
     public boolean getStatus(Long orderId) {
         OrderDTO orderDTO = getOrderDTO(orderId);
-        return orderDTO.getCanceledOrder();
+        return orderDTO.getCanceledOrder() == null || Boolean.FALSE.equals(orderDTO.getCanceledOrder());
     }
 }
 

@@ -85,6 +85,6 @@ public class WarehouseService {
 
     public boolean getStatus(Long reserveId) {
         WarehouseDTO warehouseDTO = getWarehouseDTO(reserveId);
-        return warehouseDTO.getCanceledReserve();
+        return warehouseDTO.getCanceledReserve() == null || Boolean.FALSE.equals(warehouseDTO.getCanceledReserve());
     }
 }

@@ -74,7 +74,7 @@ public class ShipmentService {
 
     public boolean getStatus(Long shipmentId) {
         ShipmentDTO shipmentDTO = getShipmentDTO(shipmentId);
-        return shipmentDTO.getCanceledReserve();
+        return shipmentDTO.getCanceledReserve() == null || Boolean.FALSE.equals(shipmentDTO.getCanceledReserve());
     }
 
     private ShipmentDTO getShipmentDTO(Long shipmentId) {
