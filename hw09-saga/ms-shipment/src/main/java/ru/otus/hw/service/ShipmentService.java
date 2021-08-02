@@ -10,6 +10,8 @@ import ru.otus.hw.model.Shipment;
 import ru.otus.hw.model.ShipmentDTO;
 import ru.otus.hw.repository.ShipmentRepository;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -52,15 +54,12 @@ public class ShipmentService {
                 String.class);
     }
 
-    public boolean cancelReserveShipment(Long orderId) {
-        var shipmentDTO = shipmentRepository.findById(orderId);
-        if (shipmentDTO.isEmpty()) {
-            throw new RuntimeException("Ой, что-то пошло не так, не найден такой резерв отправки");
-        }
-        shipmentDTO.get().setCanceledReserve(true);
-        shipmentRepository.save(shipmentDTO.get());
+    public boolean cancelReserveShipment(Long shipmentId) {
+        ShipmentDTO shipmentDTO = getShipmentDTO(shipmentId);
+        shipmentDTO.setCanceledReserve(true);
+        shipmentRepository.save(shipmentDTO);
         log.info("Reserve is canceled={}", shipmentDTO);
-        cancelReserveWarehouse(shipmentDTO.get().getReserveWarehouseId());
+        cancelReserveWarehouse(shipmentDTO.getReserveWarehouseId());
         return true;
     }
 
@@ -71,5 +70,18 @@ public class ShipmentService {
         shipmentDTO.setAddress(shipment.getAddress());
         shipmentDTO.setSuccess(shipment.getSuccessReserve());
         return shipmentDTO;
+    }
+
+    public boolean getStatus(Long shipmentId) {
+        ShipmentDTO shipmentDTO = getShipmentDTO(shipmentId);
+        return shipmentDTO.getCanceledReserve();
+    }
+
+    private ShipmentDTO getShipmentDTO(Long shipmentId) {
+        var shipmentDTO = shipmentRepository.findById(shipmentId);
+        if (shipmentDTO.isEmpty()) {
+            throw new RuntimeException("Ой, что-то пошло не так, не найден такой резерв отправки");
+        }
+        return shipmentDTO.get();
     }
 }

@@ -28,4 +28,10 @@ public class ShipmentController {
         return shipmentService.cancelReserveShipment(shipmentId);
     }
 
+    @GetMapping("/{shipmentId}")
+    public boolean getStatus(@PathVariable Long shipmentId) {
+        log.info("Try to get status for shipmentId={}", shipmentId);
+        return shipmentService.getStatus(shipmentId);
+    }
+
 }

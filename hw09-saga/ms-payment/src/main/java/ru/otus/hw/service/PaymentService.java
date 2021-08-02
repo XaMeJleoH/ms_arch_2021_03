@@ -43,7 +43,6 @@ public class PaymentService {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
-
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_CANCEL_ORDER)
                 .path(id.toString());
 
@@ -55,15 +54,12 @@ public class PaymentService {
                 String.class);
     }
 
-    public boolean cancelPayment(Long orderId) {
-        var paymentDTO = paymentRepository.findById(orderId);
-        if (paymentDTO.isEmpty()) {
-            throw new RuntimeException("Ой, что-то пошло не так, не найдена такая оплата");
-        }
-        paymentDTO.get().setCanceledPayment(true);
-        paymentRepository.save(paymentDTO.get());
+    public boolean cancelPayment(Long paymentId) {
+        PaymentDTO paymentDTO = getPaymentDTOById(paymentId);
+        paymentDTO.setCanceledPayment(true);
+        paymentRepository.save(paymentDTO);
         log.info("Payment is canceled={}", paymentDTO);
-        cancelOrder(paymentDTO.get().getOrderId());
+        cancelOrder(paymentDTO.getOrderId());
         return true;
     }
 
@@ -74,5 +70,18 @@ public class PaymentService {
         paymentDTO.setPremium(order.getPremium());
         paymentDTO.setSuccess(order.getSuccessPay());
         return paymentDTO;
+    }
+
+    public boolean getStatus(Long paymentId) {
+        PaymentDTO paymentDTO = getPaymentDTOById(paymentId);
+        return paymentDTO.getCanceledPayment();
+    }
+
+    private PaymentDTO getPaymentDTOById(Long paymentId) {
+        var paymentDTO = paymentRepository.findById(paymentId);
+        if (paymentDTO.isEmpty()) {
+            throw new RuntimeException("Ой, что-то пошло не так, не найдена такая оплата");
+        }
+        return paymentDTO.get();
     }
 }

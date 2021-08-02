@@ -9,6 +9,8 @@ import ru.otus.hw.model.UserIdempotentDTO;
 import ru.otus.hw.repository.OrderRepository;
 import ru.otus.hw.repository.UserIdempotentRepository;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -39,14 +41,24 @@ public class OrderService {
     }
 
     public boolean cancelOrder(Long orderId) {
+        OrderDTO orderDTO = getOrderDTO(orderId);
+        orderDTO.setCanceledOrder(true);
+        orderRepository.save(orderDTO);
+        log.info("Order is canceled={}", orderDTO);
+        return true;
+    }
+
+    private OrderDTO getOrderDTO(Long orderId) {
         var orderDTO = orderRepository.findById(orderId);
         if (orderDTO.isEmpty()) {
             throw new RuntimeException("Ой, что-то пошло не так, не найден такой заказ");
         }
-        orderDTO.get().setCanceledOrder(true);
-        orderRepository.save(orderDTO.get());
-        log.info("Order is canceled={}", orderDTO);
-        return true;
+        return orderDTO.get();
+    }
+
+    public boolean getStatus(Long orderId) {
+        OrderDTO orderDTO = getOrderDTO(orderId);
+        return orderDTO.getCanceledOrder();
     }
 }
 

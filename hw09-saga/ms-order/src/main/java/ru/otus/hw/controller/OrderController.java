@@ -33,4 +33,10 @@ public class OrderController {
         log.info("Try to cancelOrder, orderId={}", orderId);
         return orderService.cancelOrder(orderId);
     }
+
+    @GetMapping("/{orderId}")
+    public boolean getStatus(@PathVariable Long orderId) {
+        log.info("Try to get status for orderId={}", orderId);
+        return orderService.getStatus(orderId);
+    }
 }

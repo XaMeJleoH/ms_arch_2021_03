@@ -28,4 +28,9 @@ public class PaymentController {
         return paymentService.cancelPayment(paymentId);
     }
 
+    @GetMapping("/{paymentId}")
+    public boolean getStatus(@PathVariable Long paymentId) {
+        log.info("Try to get status for paymentId={}", paymentId);
+        return paymentService.getStatus(paymentId);
+    }
 }

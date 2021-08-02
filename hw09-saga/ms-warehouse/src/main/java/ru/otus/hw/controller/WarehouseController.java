@@ -27,4 +27,10 @@ public class WarehouseController {
         return warehouseService.cancelReserve(reserveId);
     }
 
+    @GetMapping("/{reserveId}")
+    public boolean getStatus(@PathVariable Long reserveId) {
+        log.info("Try to get status for shipmentId={}", reserveId);
+        return warehouseService.getStatus(reserveId);
+    }
+
 }

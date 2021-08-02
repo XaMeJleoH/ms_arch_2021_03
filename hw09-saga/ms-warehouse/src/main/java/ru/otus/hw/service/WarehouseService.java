@@ -13,6 +13,8 @@ import ru.otus.hw.model.Warehouse;
 import ru.otus.hw.model.WarehouseDTO;
 import ru.otus.hw.repository.WarehouseRepository;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -55,16 +57,21 @@ public class WarehouseService {
                 String.class);
     }
 
-    public boolean cancelReserve(Long orderId) {
+    public boolean cancelReserve(Long reserveId) {
+        WarehouseDTO warehouseDTO = getWarehouseDTO(reserveId);
+        warehouseDTO.setCanceledReserve(true);
+        warehouseRepository.save(warehouseDTO);
+        log.info("Reserve is canceled={}", warehouseDTO);
+        cancelPayment(warehouseDTO.getPaymentId());
+        return true;
+    }
+
+    private WarehouseDTO getWarehouseDTO(Long orderId) {
         var warehouseDTO = warehouseRepository.findById(orderId);
         if (warehouseDTO.isEmpty()) {
             throw new RuntimeException("Ой, что-то пошло не так, не найдена такой резерв");
         }
-        warehouseDTO.get().setCanceledReserve(true);
-        warehouseRepository.save(warehouseDTO.get());
-        log.info("Reserve is canceled={}", warehouseDTO);
-        cancelPayment(warehouseDTO.get().getPaymentId());
-        return true;
+        return warehouseDTO.get();
     }
 
     private WarehouseDTO createWarehouseDTO(Warehouse warehouse) {
@@ -74,5 +81,10 @@ public class WarehouseService {
         warehouseDTO.setOrderName(warehouse.getOrderName());
         warehouseDTO.setSuccess(warehouse.getSuccessReserve());
         return warehouseDTO;
+    }
+
+    public boolean getStatus(Long reserveId) {
+        WarehouseDTO warehouseDTO = getWarehouseDTO(reserveId);
+        return warehouseDTO.getCanceledReserve();
     }
 }
