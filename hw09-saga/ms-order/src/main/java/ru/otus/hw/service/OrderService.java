@@ -20,6 +20,10 @@ public class OrderService {
     public Long createOrder(Order order) {
         validateKeyService.validate(order.getIdempotencyKey(), order.getUserId());
         var orderDTO = orderRepository.save(createOrderDTO(order));
+        if (Boolean.FALSE.equals(order.getSuccess())) {
+            log.info("Payment is failed={}", orderDTO);
+            throw new RuntimeException("Заказ не был создан");
+        }
         //call payment
         orderDTO.setSuccess(true);
         userIdempotentRepository.save(new UserIdempotentDTO(order.getUserId(), order.getIdempotencyKey()));
