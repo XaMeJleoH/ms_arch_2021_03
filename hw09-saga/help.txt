@@ -1,0 +1,65 @@
+Let's to start:
+
+*minikube start;
+minikube start --driver=virtualbox --no-vtx-check
+minikube ip
+set DOCKER_TLS_VERIFY=1
+set DOCKER_HOST=tcp://192.168.99.100:2376
+set DOCKER_CERT_PATH=C:\Users\haazz\.minikube\certs
+set MINIKUBE_ACTIVE_DOCKERD=minikube
+docker ps
+docker login
+docker build -t hw01-kube:v1 .
+kubectl apply -f deployment.yml -f service.yml
+docker build -t hw01-kube:v2 .
+kubectl set image deployment/ms-arch-2021-03-deployment hw01-kube=hw01-kube:v2 --record
+kubectl rollout history deployment/ms-arch-2021-03-deployment deployment.apps/ms-arch-2021-03-deployment
+kubectl rollout undo deployment ms-arch-2021-03-deployment
+kubectl apply -f deployment.yml -f service.yml
+doskey /History
+-> LoadBalancer
+docker build -t xamejleoh/hw01-kube:0.1 .
+minikube addons enable metallb
+minikube addons configure metallb
+-- Enter Load Balancer Start IP: 192.168.176.130
+-- Enter Load Balancer End IP: 192.168.176.140
+minikube addons enable ingress --alsologtostderr
+kubectl get pods -n ingress-nginx
+*kubectl get pods -n kube-system | grep ingress
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml
+** В случае ошибки, я использовал kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+kubectl get ingress ms-arch-2021-03-ingress
+kubectl describe ingress ms-arch-2021-03-ingress
+
+hw2
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml
+minikube service postgres -n default --url
+    psql -h 127.0.0.1 -p 51510 -U myuser -W myapp
+kubectl delete all --all
+kubectl apply -f deployment.yml -f service.yml -f ingress.yml -f postgresql.yml -f app-config.yml
+docker build -t xamejleoh/hw02-crud:0.1 .
+**docker build -t hw02-crud:0.1 .
+
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+helm install default ./hello-chart --dry-run
+helm uninstall default
+kubectl delete all --all
+
+helm install hw02-crud ./hw02-crud-chart
+helm install postgres ./postgres-chart
+helm install ingress-chart ./ingress-chart
+
+helm uninstall hw02-crud
+helm uninstall postgres
+helm uninstall ingress-chart
+
+
+helm install hw07-idenpotent ./hw07-idenpotent-chart
+helm install postgres ./postgres-chart
+helm install ingress-chart ./ingress-chart
+
+helm uninstall hw02-crud
+helm uninstall postgres
+helm uninstall ingress-chart

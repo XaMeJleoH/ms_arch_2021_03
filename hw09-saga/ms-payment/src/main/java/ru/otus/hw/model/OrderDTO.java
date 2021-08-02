@@ -19,11 +19,11 @@ public class OrderDTO {
     @Column(name = "USER_ID")
     private Long userId;
 
-    @Column(name = "ORDER_NAME")
-    private String orderName;
+    @Column(name = "PREMIUM")
+    private BigDecimal premium;
 
-    @Column(name = "AMOUNT")
-    private BigDecimal amount;
+    @Column(name = "SUCCESS")
+    private Boolean success;
 
     @Column(name = "CANCELED_PAYMENT")
     private Boolean canceledPayment;

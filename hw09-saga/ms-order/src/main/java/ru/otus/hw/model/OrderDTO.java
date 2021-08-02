@@ -24,7 +24,4 @@ public class OrderDTO {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
-
-    @Column(name = "CANCELED_PAYMENT")
-    private Boolean canceledPayment;
 }
