@@ -18,6 +18,8 @@
     <modules>
         <module>ms-order</module>
         <module>ms-payment</module>
+        <module>ms-warehouse</module>
+        <module>ms-shipment</module>
     </modules>
 
     <properties>

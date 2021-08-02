@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Data
 @Validated
-public class Order {
+public class Payment {
     @NotNull
     @Min(1)
     private Long userId;

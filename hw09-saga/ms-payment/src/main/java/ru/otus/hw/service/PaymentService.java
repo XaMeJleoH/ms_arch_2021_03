@@ -3,42 +3,42 @@ package ru.otus.hw.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.otus.hw.model.Order;
-import ru.otus.hw.model.OrderDTO;
-import ru.otus.hw.repository.OrderRepository;
+import ru.otus.hw.model.Payment;
+import ru.otus.hw.model.PaymentDTO;
+import ru.otus.hw.repository.PaymentRepository;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
-    private final OrderRepository orderRepository;
+    private final PaymentRepository paymentRepository;
 
-    public Long pay(Order order) {
-        var orderDTO = orderRepository.save(createOrderDTO(order));
+    public Long pay(Payment order) {
+        var paymentDTO = paymentRepository.save(createPaymentDTO(order));
         if (Boolean.FALSE.equals(order.getSuccessPay())) {
-            log.info("Payment is failed={}", orderDTO);
+            log.info("Payment is failed={}", paymentDTO);
             throw new RuntimeException("Оплата не прошла");
         }
-        log.info("Payment is success={}", orderDTO);
-        return orderDTO.getId();
+        log.info("Payment is success={}", paymentDTO);
+        return paymentDTO.getId();
     }
 
     public boolean cancelPayment(Long orderId) {
-        var orderDTO = orderRepository.findById(orderId);
-        if (orderDTO.isEmpty()) {
+        var paymentDTO = paymentRepository.findById(orderId);
+        if (paymentDTO.isEmpty()) {
             throw new RuntimeException("Ой, что-то пошло не так, не найдена такая оплата");
         }
-        orderDTO.get().setCanceledPayment(true);
-        orderRepository.save(orderDTO.get());
-        log.info("Payment is canceled={}", orderDTO);
+        paymentDTO.get().setCanceledPayment(true);
+        paymentRepository.save(paymentDTO.get());
+        log.info("Payment is canceled={}", paymentDTO);
         return true;
     }
 
-    private OrderDTO createOrderDTO(Order order) {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setUserId(order.getUserId());
-        orderDTO.setPremium(order.getPremium());
-        orderDTO.setSuccess(order.getSuccessPay());
-        return orderDTO;
+    private PaymentDTO createPaymentDTO(Payment order) {
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setUserId(order.getUserId());
+        paymentDTO.setPremium(order.getPremium());
+        paymentDTO.setSuccess(order.getSuccessPay());
+        return paymentDTO;
     }
 }
