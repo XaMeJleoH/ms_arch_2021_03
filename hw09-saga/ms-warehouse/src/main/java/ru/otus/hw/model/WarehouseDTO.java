@@ -19,6 +19,9 @@ public class WarehouseDTO {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Column(name = "PAYMENT_ID")
+    private Long paymentId;
+
     @Column(name = "ORDER_NAME")
     private String orderName;
 

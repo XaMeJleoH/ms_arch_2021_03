@@ -16,6 +16,10 @@ public class Warehouse {
     @Min(1)
     private Long userId;
 
+    @NotNull
+    @Min(1)
+    private Long paymentId;
+
     @NotBlank
     private String orderName;
 

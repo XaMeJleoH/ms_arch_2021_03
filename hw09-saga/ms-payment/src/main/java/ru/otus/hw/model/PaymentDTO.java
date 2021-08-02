@@ -19,6 +19,9 @@ public class PaymentDTO {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Column(name = "ORDER_ID")
+    private Long orderId;
+
     @Column(name = "PREMIUM")
     private BigDecimal premium;
 

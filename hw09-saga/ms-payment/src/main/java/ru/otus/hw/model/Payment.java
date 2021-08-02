@@ -16,6 +16,10 @@ public class Payment {
     @Min(1)
     private Long userId;
 
+    @NotNull
+    @Min(1)
+    private Long orderId;
+
     @NotBlank
     private BigDecimal premium;
 

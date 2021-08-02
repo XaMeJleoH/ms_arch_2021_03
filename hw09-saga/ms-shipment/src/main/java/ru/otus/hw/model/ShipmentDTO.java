@@ -19,6 +19,9 @@ public class ShipmentDTO {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Column(name = "RESERVE_WAREHOUSE_ID")
+    private Long reserveWarehouseId;
+
     @Column(name = "address")
     private String address;
 

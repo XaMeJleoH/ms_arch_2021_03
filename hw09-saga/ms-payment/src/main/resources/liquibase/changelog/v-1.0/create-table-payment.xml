@@ -15,6 +15,9 @@
             <column name="user_id" type="bigserial">
                 <constraints nullable="false" unique="false"/>
             </column>
+            <column name="ORDER_ID" type="bigserial">
+                <constraints nullable="false" unique="false"/>
+            </column>
             <column name="premium" type="numeric"/>
             <column name="success" type="boolean"/>
             <column name="CANCELED_PAYMENT" type="boolean"/>

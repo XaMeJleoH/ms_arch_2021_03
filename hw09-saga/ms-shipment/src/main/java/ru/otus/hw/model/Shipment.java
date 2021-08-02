@@ -16,6 +16,10 @@ public class Shipment {
     @Min(1)
     private Long userId;
 
+    @NotNull
+    @Min(1)
+    private Long reserveWarehouseId;
+
     @NotBlank
     private String address;
 
