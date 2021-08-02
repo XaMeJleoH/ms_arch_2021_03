@@ -94,3 +94,51 @@
 "idempotencyKey": "e3fb3ed1-4de1-4394-a180-e7d684d815be"
 }
 `
+- Изменение заказа
+> Rest-API. </br>
+> POST. Content-Type: application/json; </br>
+> URL: */order/change </br>
+> Example request:
+`
+{
+"orderId":63325,
+"orderName":"4343",
+"idempotencyKey": "e3fb3ed1-4de1-4394-a180-e7d684d815be"
+}
+`
+- Получение списка заказов
+> Rest-API. </br>
+> POST. Content-Type: application/json; </br>
+> URL: */order/history </br>
+> Example request:
+`
+{
+"userId":325,
+"idempotencyKey": "e3fb3ed1-4de1-4394-a180-e7d684d815be"
+}
+`
+- Отмена заказа
+> Rest-API. </br>
+> POST. Content-Type: application/json; </br>
+> URL: */order/cancel </br>
+> Example request:
+`
+{
+"userId":325,
+"orderId":63325,
+"idempotencyKey": "e3fb3ed1-4de1-4394-a180-e7d684d815be"
+}
+`
+
+### ms-notification
+- Отправка уведомления
+> Rest-API. </br>
+> POST. Content-Type: application/json; </br>
+> URL: */notification </br>
+> Example request:
+`
+{
+"email":test@test.test,
+"message":"Yo, created order."
+}
+`
