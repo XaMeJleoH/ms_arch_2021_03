@@ -17,10 +17,16 @@ public class PaymentService {
         var paymentDTO = paymentRepository.save(createPaymentDTO(order));
         if (Boolean.FALSE.equals(order.getSuccessPay())) {
             log.info("Payment is failed={}", paymentDTO);
+            cancelOrder();
             throw new RuntimeException("Оплата не прошла");
         }
         log.info("Payment is success={}", paymentDTO);
         return paymentDTO.getId();
+    }
+
+    private void cancelOrder() {
+        log.info("Отменяем заказ");
+        //call cancel order
     }
 
     public boolean cancelPayment(Long orderId) {
@@ -31,6 +37,7 @@ public class PaymentService {
         paymentDTO.get().setCanceledPayment(true);
         paymentRepository.save(paymentDTO.get());
         log.info("Payment is canceled={}", paymentDTO);
+        cancelOrder();
         return true;
     }
 

@@ -17,10 +17,16 @@ public class WarehouseService {
         var warehouseDTO = warehouseRepository.save(createWarehouseDTO(warehouse));
         if (Boolean.FALSE.equals(warehouse.getSuccessReserve())) {
             log.info("Reserve is failed={}", warehouseDTO);
+            cancelPayment();
             throw new RuntimeException("Резерв не удался");
         }
         log.info("Reserve is success={}", warehouseDTO);
         return warehouseDTO.getId();
+    }
+
+    private void cancelPayment() {
+        log.info("Отменяем оплату");
+        //call cancel Payment
     }
 
     public boolean cancelReserve(Long orderId) {
@@ -31,6 +37,7 @@ public class WarehouseService {
         warehouseDTO.get().setCanceledReserve(true);
         warehouseRepository.save(warehouseDTO.get());
         log.info("Reserve is canceled={}", warehouseDTO);
+        cancelPayment();
         return true;
     }
 

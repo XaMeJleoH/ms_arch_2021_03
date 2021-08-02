@@ -24,7 +24,6 @@ public class OrderService {
             log.info("Payment is failed={}", orderDTO);
             throw new RuntimeException("Заказ не был создан");
         }
-        //call payment
         orderDTO.setSuccess(true);
         userIdempotentRepository.save(new UserIdempotentDTO(order.getUserId(), order.getIdempotencyKey()));
         log.info("Created order={}", orderDTO);

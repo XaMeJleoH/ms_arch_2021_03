@@ -17,20 +17,27 @@ public class ShipmentService {
         var shipmentDTO = shipmentRepository.save(createShipmentDTO(shipment));
         if (Boolean.FALSE.equals(shipment.getSuccessReserve())) {
             log.info("Reserve is failed={}", shipmentDTO);
-            throw new RuntimeException("Резерв не удался");
+            cancelReserveWarehouse();
+            throw new RuntimeException("Резерв отправки не удался");
         }
         log.info("Reserve is success={}", shipmentDTO);
         return shipmentDTO.getId();
     }
 
+    private void cancelReserveWarehouse() {
+        log.info("Отменяем резерв на складе");
+        //call cancel Reserve in Warehouse
+    }
+
     public boolean cancelReserveShipment(Long orderId) {
         var shipmentDTO = shipmentRepository.findById(orderId);
         if (shipmentDTO.isEmpty()) {
-            throw new RuntimeException("Ой, что-то пошло не так, не найден такой резерв");
+            throw new RuntimeException("Ой, что-то пошло не так, не найден такой резерв отправки");
         }
         shipmentDTO.get().setCanceledReserve(true);
         shipmentRepository.save(shipmentDTO.get());
         log.info("Reserve is canceled={}", shipmentDTO);
+        cancelReserveWarehouse();
         return true;
     }
 
