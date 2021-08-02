@@ -24,4 +24,11 @@ public class OrderDTO {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
+
+    @Column(name = "SUCCESS")
+    private Boolean success;
+
+    @Column(name = "CANCELED_ORDER")
+    private Boolean canceledOrder;
+
 }

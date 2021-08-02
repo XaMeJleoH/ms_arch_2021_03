@@ -23,6 +23,9 @@ public class Order {
     private BigDecimal amount;
 
     @NotNull
+    private Boolean success;
+
+    @NotNull
     private UUID idempotencyKey;
 
 }

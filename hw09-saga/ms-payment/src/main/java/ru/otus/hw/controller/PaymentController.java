@@ -9,7 +9,7 @@ import ru.otus.hw.service.PaymentService;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("order")
+@RequestMapping("payment")
 public class PaymentController {
     private final PaymentService paymentService;
 
@@ -20,9 +20,10 @@ public class PaymentController {
         return paymentService.pay(payment);
     }
 
-    @PostMapping
+
+    @PostMapping("/{paymentId}")
     public @ResponseBody
-    boolean cancelPayment(@RequestBody Long paymentId) {
+    boolean cancelPayment(@PathVariable Long paymentId) {
         log.info("Try to cancelPayment id={}", paymentId);
         return paymentService.cancelPayment(paymentId);
     }

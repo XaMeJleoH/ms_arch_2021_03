@@ -9,7 +9,7 @@ import ru.otus.hw.service.ShipmentService;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("order")
+@RequestMapping("shipment")
 public class ShipmentController {
     private final ShipmentService shipmentService;
 
@@ -20,9 +20,10 @@ public class ShipmentController {
         return shipmentService.reserveShipment(shipment);
     }
 
-    @PostMapping
+
+    @PostMapping("/{shipmentId}")
     public @ResponseBody
-    boolean cancelReserveShipment(@RequestBody Long shipmentId) {
+    boolean cancelReserveShipment(@PathVariable Long shipmentId) {
         log.info("Try to cancelReserveShipment id={}", shipmentId);
         return shipmentService.cancelReserveShipment(shipmentId);
     }

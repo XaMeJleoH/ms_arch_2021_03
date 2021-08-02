@@ -8,15 +8,16 @@
 
     <changeSet author="XaMeJleoH" id="1">
         <comment>Create table for User</comment>
-        <createTable tableName="order" schemaName="ms_order">
+        <createTable tableName="shipment" schemaName="ms_shipment">
             <column autoIncrement="true" name="id" type="bigserial">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="user_id" type="bigserial">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="order_name" type="varchar(255)"/>
-            <column name="amount" type="numeric"/>
+            <column name="address" type="varchar(255)"/>
+            <column name="success" type="boolean"/>
+            <column name="CANCELED_PAYMENT" type="boolean"/>
         </createTable>
     </changeSet>
 

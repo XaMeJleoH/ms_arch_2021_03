@@ -26,9 +26,10 @@ public class OrderController {
         return orderService.createOrder(order);
     }
 
-    @PostMapping
+
+    @PostMapping("/{orderId}")
     public @ResponseBody
-    boolean cancelOrder(@RequestBody Long orderId) {
+    boolean cancelOrder(@PathVariable Long orderId) {
         log.info("Try to cancelOrder, orderId={}", orderId);
         return orderService.cancelOrder(orderId);
     }

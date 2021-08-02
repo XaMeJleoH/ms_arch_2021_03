@@ -7,8 +7,8 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="XaMeJleoH" id="1">
-        <comment>Create schema ms_order</comment>
-        <sql>CREATE SCHEMA IF NOT EXISTS ms_order</sql>
+        <comment>Create schema ms_shipment</comment>
+        <sql>CREATE SCHEMA IF NOT EXISTS ms_shipment</sql>
     </changeSet>
 
 </databaseChangeLog>

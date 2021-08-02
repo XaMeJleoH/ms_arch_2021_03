@@ -9,7 +9,7 @@ import ru.otus.hw.service.WarehouseService;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("order")
+@RequestMapping("warehouse")
 public class WarehouseController {
     private final WarehouseService warehouseService;
 
@@ -20,9 +20,9 @@ public class WarehouseController {
         return warehouseService.reserve(warehouse);
     }
 
-    @PostMapping
+    @PostMapping("/{reserveId}")
     public @ResponseBody
-    boolean cancelReserve(@RequestBody Long reserveId) {
+    boolean cancelReserve(@PathVariable Long reserveId) {
         log.info("Try to cancelReserve id={}", reserveId);
         return warehouseService.cancelReserve(reserveId);
     }
