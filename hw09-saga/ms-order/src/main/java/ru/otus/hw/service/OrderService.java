@@ -64,5 +64,11 @@ public class OrderService {
         OrderDTO orderDTO = getOrderDTO(orderId);
         return orderDTO.getOrderStatus();
     }
+
+    public void finishOrder(Long orderId) {
+        OrderDTO orderDTO = getOrderDTO(orderId);
+        orderDTO.setOrderStatus(OrderStatus.FINISH);
+        orderRepository.save(orderDTO);
+    }
 }
 

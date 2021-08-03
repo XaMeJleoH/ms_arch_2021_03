@@ -18,6 +18,10 @@ public class Shipment {
 
     @NotNull
     @Min(1)
+    private Long orderId;
+
+    @NotNull
+    @Min(1)
     private Long reserveWarehouseId;
 
     @NotBlank

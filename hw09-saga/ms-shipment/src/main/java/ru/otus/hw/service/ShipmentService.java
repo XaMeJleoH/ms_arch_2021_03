@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ShipmentService {
     private static final String URL_WAREHOUSE_CANCEL_RESERVE = "http://localhost:83/warehouse/";
+    private static final String URL_ORDER_FINISH = "http://localhost:80/order/finish/";
 
     private final ShipmentRepository shipmentRepository;
 
@@ -33,22 +34,30 @@ public class ShipmentService {
         shipmentDTO.setShipmentStatus(ShipmentStatus.FINISH);
         shipmentRepository.save(shipmentDTO);
         log.info("Reserve is success={}", shipmentDTO);
+        //call finish Order
+        finishOrder(shipment.getOrderId());
         return shipmentDTO.getId();
+    }
+
+    private void finishOrder(Long orderId) {
+        log.info("Присваиваем статус заказку успешный");
+        ResponseEntity<String> response = callService(orderId, URL_ORDER_FINISH);
+        log.info("Result call={}", response);
     }
 
     private void cancelReserveWarehouse(Long reserveWarehouseId) {
         log.info("Отменяем резерв на складе");
         //call cancel Reserve in Warehouse
-        ResponseEntity<String> response = callService(reserveWarehouseId);
+        ResponseEntity<String> response = callService(reserveWarehouseId, URL_WAREHOUSE_CANCEL_RESERVE);
         log.info("Result call={}", response);
     }
 
-    private ResponseEntity<String> callService(Long id) {
+    private ResponseEntity<String> callService(Long id, String URL) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_WAREHOUSE_CANCEL_RESERVE)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
                 .path(id.toString());
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -71,6 +80,7 @@ public class ShipmentService {
     private ShipmentDTO createShipmentDTO(Shipment shipment) {
         ShipmentDTO shipmentDTO = new ShipmentDTO();
         shipmentDTO.setUserId(shipment.getUserId());
+        shipmentDTO.setOrderId(shipment.getOrderId());
         shipmentDTO.setReserveWarehouseId(shipment.getReserveWarehouseId());
         shipmentDTO.setAddress(shipment.getAddress());
         shipmentDTO.setSuccess(shipment.getSuccessReserve());
