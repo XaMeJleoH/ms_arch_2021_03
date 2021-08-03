@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: hw09-saga
+  repository: hw09-saga-shipment
 
 service:
   type: NodePort

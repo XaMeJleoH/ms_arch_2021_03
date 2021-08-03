@@ -2,6 +2,7 @@ package ru.otus.hw.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,7 +19,9 @@ import ru.otus.hw.repository.PaymentRepository;
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
-    private static final String URL_CANCEL_ORDER = "http://localhost:80/order/";
+
+    @Value("${ms.order.url.cancel.order:http://localhost:80/order/}")
+    private String urlCancelOrder;
 
     private final PaymentRepository paymentRepository;
 
@@ -48,7 +51,7 @@ public class PaymentService {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_CANCEL_ORDER)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCancelOrder)
                 .path(id.toString());
 
         HttpEntity<?> entity = new HttpEntity<>(headers);

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hw09-saga-shipment.fullname" . }}
+  labels:
+    {{- include "hw09-saga-shipment.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "hw09-saga-shipment.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "hw09-saga-shipment.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "xamejleoh/{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          ports:
+            - name: web
+              containerPort: 82
+          envFrom:
+            - configMapRef:
+                name: ms-arch-2021-03-config
+            - secretRef:
+                name: ms-arch-2021-03-secret

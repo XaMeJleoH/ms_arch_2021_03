@@ -2,6 +2,7 @@ package ru.otus.hw.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,13 +15,12 @@ import ru.otus.hw.model.WarehouseDTO;
 import ru.otus.hw.model.WarehouseStatus;
 import ru.otus.hw.repository.WarehouseRepository;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class WarehouseService {
-    private static final String URL_CANCEL_PAYMENT = "http://localhost:81/payment/";
+    @Value("${ms.order.url.cancel.payment:http://localhost:81/payment/}")
+    private String urlCancelPayment;
 
     private final WarehouseRepository warehouseRepository;
 
@@ -51,7 +51,7 @@ public class WarehouseService {
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_CANCEL_PAYMENT)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCancelPayment)
                 .path(id.toString());
 
         HttpEntity<?> entity = new HttpEntity<>(headers);

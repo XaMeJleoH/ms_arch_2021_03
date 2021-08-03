@@ -2,6 +2,7 @@ package ru.otus.hw.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,14 +12,15 @@ import ru.otus.hw.model.ShipmentDTO;
 import ru.otus.hw.model.ShipmentStatus;
 import ru.otus.hw.repository.ShipmentRepository;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShipmentService {
-    private static final String URL_WAREHOUSE_CANCEL_RESERVE = "http://localhost:83/warehouse/";
-    private static final String URL_ORDER_FINISH = "http://localhost:80/order/finish/";
+    @Value("${ms.order.url.cancel.reserve:http://localhost:83/warehouse/}")
+    private String urlWarehouseCancelReserve;
+
+    @Value("${ms.order.url.order.finish:http://localhost:80/order/finish/}")
+    private final String urlOrderFinish;
 
     private final ShipmentRepository shipmentRepository;
 
@@ -41,14 +43,14 @@ public class ShipmentService {
 
     private void finishOrder(Long orderId) {
         log.info("Присваиваем статус заказку успешный");
-        ResponseEntity<String> response = callService(orderId, URL_ORDER_FINISH);
+        ResponseEntity<String> response = callService(orderId, urlOrderFinish);
         log.info("Result call={}", response);
     }
 
     private void cancelReserveWarehouse(Long reserveWarehouseId) {
         log.info("Отменяем резерв на складе");
         //call cancel Reserve in Warehouse
-        ResponseEntity<String> response = callService(reserveWarehouseId, URL_WAREHOUSE_CANCEL_RESERVE);
+        ResponseEntity<String> response = callService(reserveWarehouseId, urlWarehouseCancelReserve);
         log.info("Result call={}", response);
     }
 

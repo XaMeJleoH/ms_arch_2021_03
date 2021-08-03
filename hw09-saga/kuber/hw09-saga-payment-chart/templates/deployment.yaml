@@ -1,27 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hw09-saga.fullname" . }}
+  name: {{ include "hw09-saga-payment.fullname" . }}
   labels:
-    {{- include "hw09-saga.labels" . | nindent 4 }}
+    {{- include "hw09-saga-payment.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "hw09-saga.selectorLabels" . | nindent 6 }}
+      {{- include "hw09-saga-payment.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "hw09-saga.selectorLabels" . | nindent 8 }}
-      annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        {{- include "hw09-saga-payment.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "xamejleoh/{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           ports:
             - name: web
-              containerPort: 80
+              containerPort: 81
           envFrom:
             - configMapRef:
                 name: ms-arch-2021-03-config

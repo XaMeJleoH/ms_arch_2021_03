@@ -63,3 +63,38 @@ helm install ingress-chart ./ingress-chart
 helm uninstall hw02-crud
 helm uninstall postgres
 helm uninstall ingress-chart
+
+
+_______
+kubectl delete configmap --all
+kubectl delete secrets --all
+kubectl delete all --all
+helm install default ./hello-chart --dry-run
+helm uninstall default
+kubectl delete all --all
+
+kubectl get validatingwebhookconfigurations  --all-namespaces
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
+cd C:\projects\ms_arch_2021_03\hw09-saga\ms-order
+docker build -t xamejleoh/hw09-saga-order:0.1 .
+cd C:\projects\ms_arch_2021_03\hw09-saga\ms-payment
+docker build -t xamejleoh/hw09-saga-payment:0.1 .
+cd C:\projects\ms_arch_2021_03\hw09-saga\ms-shipment
+docker build -t xamejleoh/hw09-saga-shipment:0.1 .
+cd C:\projects\ms_arch_2021_03\hw09-saga\ms-warehouse
+docker build -t xamejleoh/hw09-saga-warehouse:0.1 .
+
+helm install postgres ./kuber/postgres-chart
+helm install ingress-chart ./kuber/ingress-chart
+helm install hw09-saga-order ./kuber/hw09-saga-order-chart
+helm install hw09-saga-payment ./kuber/hw09-saga-payment-chart
+helm install hw09-saga-shipment ./kuber/hw09-saga-shipment-chart
+helm install hw09-saga-warehouse ./kuber/hw09-saga-warehouse-chart
+
+helm uninstall postgres
+helm uninstall ingress-chart
+helm uninstall hw09-saga-order
+helm uninstall hw09-saga-payment
+helm uninstall hw09-saga-shipment
+helm uninstall hw09-saga-warehouse

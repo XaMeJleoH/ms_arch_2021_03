@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "hw09-saga.fullname" . }}
+  name: {{ include "hw09-saga-shipment.fullname" . }}
   labels:
-    {{- include "hw09-saga.labels" . | nindent 4 }}
+    {{- include "hw09-saga-shipment.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: web
   selector:
-    {{- include "hw09-saga.selectorLabels" . | nindent 4 }}
+    {{- include "hw09-saga-shipment.selectorLabels" . | nindent 4 }}
