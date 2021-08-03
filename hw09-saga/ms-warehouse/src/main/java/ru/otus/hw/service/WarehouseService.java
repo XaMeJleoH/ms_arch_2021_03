@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.otus.hw.model.Warehouse;
 import ru.otus.hw.model.WarehouseDTO;
+import ru.otus.hw.model.WarehouseStatus;
 import ru.otus.hw.repository.WarehouseRepository;
 
 import java.util.Optional;
@@ -27,9 +28,13 @@ public class WarehouseService {
         var warehouseDTO = warehouseRepository.save(createWarehouseDTO(warehouse));
         if (Boolean.FALSE.equals(warehouse.getSuccessReserve())) {
             log.info("Reserve is failed={}", warehouseDTO);
+            warehouseDTO.setWarehouseStatus(WarehouseStatus.FAILED);
+            warehouseRepository.save(warehouseDTO);
             cancelPayment(warehouse.getPaymentId());
             throw new RuntimeException("Резерв не удался");
         }
+        warehouseDTO.setWarehouseStatus(WarehouseStatus.FINISH);
+        warehouseRepository.save(warehouseDTO);
         log.info("Reserve is success={}", warehouseDTO);
         return warehouseDTO.getId();
     }
@@ -59,7 +64,7 @@ public class WarehouseService {
 
     public boolean cancelReserve(Long reserveId) {
         WarehouseDTO warehouseDTO = getWarehouseDTO(reserveId);
-        warehouseDTO.setCanceledReserve(true);
+        warehouseDTO.setWarehouseStatus(WarehouseStatus.CANCELED);
         warehouseRepository.save(warehouseDTO);
         log.info("Reserve is canceled={}", warehouseDTO);
         cancelPayment(warehouseDTO.getPaymentId());
@@ -83,8 +88,8 @@ public class WarehouseService {
         return warehouseDTO;
     }
 
-    public boolean getStatus(Long reserveId) {
+    public WarehouseStatus getStatus(Long reserveId) {
         WarehouseDTO warehouseDTO = getWarehouseDTO(reserveId);
-        return warehouseDTO.getCanceledReserve() == null || Boolean.FALSE.equals(warehouseDTO.getCanceledReserve());
+        return warehouseDTO.getWarehouseStatus();
     }
 }

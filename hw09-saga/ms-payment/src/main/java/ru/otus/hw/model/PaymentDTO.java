@@ -28,6 +28,6 @@ public class PaymentDTO {
     @Column(name = "SUCCESS")
     private Boolean success;
 
-    @Column(name = "CANCELED_PAYMENT")
-    private Boolean canceledPayment;
+    @Column(name = "PAYMENT_STATUS")
+    private PaymentStatus paymentStatus;
 }

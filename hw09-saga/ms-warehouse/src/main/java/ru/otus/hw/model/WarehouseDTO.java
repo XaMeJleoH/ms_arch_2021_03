@@ -28,6 +28,6 @@ public class WarehouseDTO {
     @Column(name = "SUCCESS")
     private Boolean success;
 
-    @Column(name = "CANCELED_RESERVE")
-    private Boolean canceledReserve;
+    @Column(name = "WAREHOUSE_STATUS")
+    private WarehouseStatus warehouseStatus;
 }

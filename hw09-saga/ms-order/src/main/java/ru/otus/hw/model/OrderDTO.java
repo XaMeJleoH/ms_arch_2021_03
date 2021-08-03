@@ -28,7 +28,7 @@ public class OrderDTO {
     @Column(name = "SUCCESS")
     private Boolean success;
 
-    @Column(name = "CANCELED_ORDER")
-    private Boolean canceledOrder;
+    @Column(name = "ORDER_STATUS")
+    private OrderStatus orderStatus;
 
 }

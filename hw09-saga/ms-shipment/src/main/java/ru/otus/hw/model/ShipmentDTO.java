@@ -28,6 +28,6 @@ public class ShipmentDTO {
     @Column(name = "SUCCESS")
     private Boolean success;
 
-    @Column(name = "CANCELED_RESERVE")
-    private Boolean canceledReserve;
+    @Column(name = "SHIPMENT_STATUS")
+    private ShipmentStatus shipmentStatus;
 }

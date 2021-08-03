@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.otus.hw.model.Payment;
 import ru.otus.hw.model.PaymentDTO;
+import ru.otus.hw.model.PaymentStatus;
 import ru.otus.hw.repository.PaymentRepository;
 
 @Slf4j
@@ -25,9 +26,13 @@ public class PaymentService {
         var paymentDTO = paymentRepository.save(createPaymentDTO(order));
         if (Boolean.FALSE.equals(order.getSuccessPay())) {
             log.info("Payment is failed={}", paymentDTO);
+            paymentDTO.setPaymentStatus(PaymentStatus.FAILED);
+            paymentRepository.save(paymentDTO);
             cancelOrder(order.getOrderId());
             throw new RuntimeException("Оплата не прошла");
         }
+        paymentDTO.setPaymentStatus(PaymentStatus.FINISH);
+        paymentRepository.save(paymentDTO);
         log.info("Payment is success={}", paymentDTO);
         return paymentDTO.getId();
     }
@@ -56,7 +61,7 @@ public class PaymentService {
 
     public boolean cancelPayment(Long paymentId) {
         PaymentDTO paymentDTO = getPaymentDTOById(paymentId);
-        paymentDTO.setCanceledPayment(true);
+        paymentDTO.setPaymentStatus(PaymentStatus.CANCELED);
         paymentRepository.save(paymentDTO);
         log.info("Payment is canceled={}", paymentDTO);
         cancelOrder(paymentDTO.getOrderId());
@@ -72,9 +77,9 @@ public class PaymentService {
         return paymentDTO;
     }
 
-    public boolean getStatus(Long paymentId) {
+    public PaymentStatus getStatus(Long paymentId) {
         PaymentDTO paymentDTO = getPaymentDTOById(paymentId);
-        return paymentDTO.getCanceledPayment() == null || Boolean.FALSE.equals(paymentDTO.getCanceledPayment());
+        return paymentDTO.getPaymentStatus();
     }
 
     private PaymentDTO getPaymentDTOById(Long paymentId) {

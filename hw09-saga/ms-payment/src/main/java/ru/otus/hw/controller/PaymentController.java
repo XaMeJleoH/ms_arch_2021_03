@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.model.Payment;
+import ru.otus.hw.model.PaymentStatus;
 import ru.otus.hw.service.PaymentService;
 
 @Slf4j
@@ -29,7 +30,7 @@ public class PaymentController {
     }
 
     @GetMapping("/{paymentId}")
-    public boolean getStatus(@PathVariable Long paymentId) {
+    public PaymentStatus getStatus(@PathVariable Long paymentId) {
         log.info("Try to get status for paymentId={}", paymentId);
         return paymentService.getStatus(paymentId);
     }

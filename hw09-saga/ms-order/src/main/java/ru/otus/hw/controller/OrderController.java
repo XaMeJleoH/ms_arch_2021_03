@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.model.Order;
+import ru.otus.hw.model.OrderStatus;
 import ru.otus.hw.service.OrderService;
 
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    public boolean getStatus(@PathVariable Long orderId) {
+    public OrderStatus getStatus(@PathVariable Long orderId) {
         log.info("Try to get status for orderId={}", orderId);
         return orderService.getStatus(orderId);
     }

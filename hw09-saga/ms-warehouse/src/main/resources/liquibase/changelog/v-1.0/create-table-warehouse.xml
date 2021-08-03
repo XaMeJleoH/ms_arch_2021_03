@@ -20,7 +20,7 @@
             </column>
             <column name="ORDER_NAME" type="varchar(255)"/>
             <column name="success" type="boolean"/>
-            <column name="CANCELED_RESERVE" type="boolean"/>
+            <column name="WAREHOUSE_STATUS" type="varchar(255)"/>
         </createTable>
     </changeSet>
 

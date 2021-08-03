@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.model.Shipment;
+import ru.otus.hw.model.ShipmentStatus;
 import ru.otus.hw.service.ShipmentService;
 
 @Slf4j
@@ -29,7 +30,7 @@ public class ShipmentController {
     }
 
     @GetMapping("/{shipmentId}")
-    public boolean getStatus(@PathVariable Long shipmentId) {
+    public ShipmentStatus getStatus(@PathVariable Long shipmentId) {
         log.info("Try to get status for shipmentId={}", shipmentId);
         return shipmentService.getStatus(shipmentId);
     }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.model.Warehouse;
+import ru.otus.hw.model.WarehouseStatus;
 import ru.otus.hw.service.WarehouseService;
 
 @Slf4j
@@ -28,7 +29,7 @@ public class WarehouseController {
     }
 
     @GetMapping("/{reserveId}")
-    public boolean getStatus(@PathVariable Long reserveId) {
+    public WarehouseStatus getStatus(@PathVariable Long reserveId) {
         log.info("Try to get status for shipmentId={}", reserveId);
         return warehouseService.getStatus(reserveId);
     }

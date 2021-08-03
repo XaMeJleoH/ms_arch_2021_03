@@ -18,7 +18,7 @@
             <column name="order_name" type="varchar(255)"/>
             <column name="amount" type="numeric"/>
             <column name="success" type="boolean"/>
-            <column name="CANCELED_ORDER" type="boolean"/>
+            <column name="ORDER_STATUS" type="varchar(255)"/>
         </createTable>
     </changeSet>
 

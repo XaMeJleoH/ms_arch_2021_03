@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.otus.hw.model.Shipment;
 import ru.otus.hw.model.ShipmentDTO;
+import ru.otus.hw.model.ShipmentStatus;
 import ru.otus.hw.repository.ShipmentRepository;
 
 import java.util.Optional;
@@ -24,9 +25,13 @@ public class ShipmentService {
         var shipmentDTO = shipmentRepository.save(createShipmentDTO(shipment));
         if (Boolean.FALSE.equals(shipment.getSuccessReserve())) {
             log.info("Reserve is failed={}", shipmentDTO);
+            shipmentDTO.setShipmentStatus(ShipmentStatus.FAILED);
+            shipmentRepository.save(shipmentDTO);
             cancelReserveWarehouse(shipment.getReserveWarehouseId());
             throw new RuntimeException("Резерв отправки не удался");
         }
+        shipmentDTO.setShipmentStatus(ShipmentStatus.FINISH);
+        shipmentRepository.save(shipmentDTO);
         log.info("Reserve is success={}", shipmentDTO);
         return shipmentDTO.getId();
     }
@@ -56,7 +61,7 @@ public class ShipmentService {
 
     public boolean cancelReserveShipment(Long shipmentId) {
         ShipmentDTO shipmentDTO = getShipmentDTO(shipmentId);
-        shipmentDTO.setCanceledReserve(true);
+        shipmentDTO.setShipmentStatus(ShipmentStatus.CANCELED);
         shipmentRepository.save(shipmentDTO);
         log.info("Reserve is canceled={}", shipmentDTO);
         cancelReserveWarehouse(shipmentDTO.getReserveWarehouseId());
@@ -72,9 +77,9 @@ public class ShipmentService {
         return shipmentDTO;
     }
 
-    public boolean getStatus(Long shipmentId) {
+    public ShipmentStatus getStatus(Long shipmentId) {
         ShipmentDTO shipmentDTO = getShipmentDTO(shipmentId);
-        return shipmentDTO.getCanceledReserve() == null || Boolean.FALSE.equals(shipmentDTO.getCanceledReserve());
+        return shipmentDTO.getShipmentStatus();
     }
 
     private ShipmentDTO getShipmentDTO(Long shipmentId) {
