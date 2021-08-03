@@ -48,6 +48,7 @@ public class PaymentService {
     }
 
     private ResponseEntity<String> callService(Long id) {
+        log.info("Try to call service with URL={}", urlCancelOrder);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 

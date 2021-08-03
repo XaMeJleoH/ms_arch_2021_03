@@ -4,10 +4,10 @@ metadata:
   name: ms-arch-2021-03-config
 data:
   spring.datasource.url: jdbc:postgresql://postgres:5432/myapp
-  ms.order.url.cancel.payment: "http://arch.homework/otusapp/makhanov/payment/"
-  ms.order.url.cancel.reserve: "http://arch.homework/otusapp/makhanov/warehouse/"
-  ms.order.url.order.finish: "http://arch.homework/otusapp/makhanov/order/finish/"
-  ms.order.url.cancel.order: "http://arch.homework/otusapp/makhanov/order/"
+  ms.order.url.cancel.payment: "http://arch.homework/payment/"
+  ms.order.url.cancel.reserve: "http://arch.homework/warehouse/"
+  ms.order.url.order.finish: "http://arch.homework/order/finish/"
+  ms.order.url.cancel.order: "http://arch.homework/order/"
 
 ---
 apiVersion: v1

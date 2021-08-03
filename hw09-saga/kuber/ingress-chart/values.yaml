@@ -1,8 +1,14 @@
 replicaCount: 1
 
-ingressName: ms-arch-2021-03-ingress
+ingressOrderName: ms-arch-2021-03-hw09-saga-order-ingress
+ingressPaymentName: ms-arch-2021-03-hw09-saga-payment-ingress
+ingressShipmentName: ms-arch-2021-03-hw09-saga-shipment-ingress
+ingressWarehouseName: ms-arch-2021-03-hw09-saga-warehouse-ingress
 ingressHost: arch.homework
-ingressServiceName: hw07-idenpotent-ms-arch-2021-03
+ingressOrderServiceName: hw09-saga-order-ms-arch-2021-03
+ingressPaymentServiceName: hw09-saga-payment-ms-arch-2021-03
+ingressShipmentServiceName: hw09-saga-shipment-ms-arch-2021-03
+ingressWarehouseServiceName: hw09-saga-warehouse-ms-arch-2021-03
 
 service:
   type: NodePort

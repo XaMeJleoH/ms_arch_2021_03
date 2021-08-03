@@ -47,6 +47,7 @@ public class WarehouseService {
     }
 
     private ResponseEntity<String> callService(Long id) {
+        log.info("Try to call service with URL={}", urlCancelPayment);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 

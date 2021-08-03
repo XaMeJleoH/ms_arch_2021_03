@@ -20,7 +20,7 @@ public class ShipmentService {
     private String urlWarehouseCancelReserve;
 
     @Value("${ms.order.url.order.finish:http://localhost:80/order/finish/}")
-    private final String urlOrderFinish;
+    private String urlOrderFinish;
 
     private final ShipmentRepository shipmentRepository;
 
@@ -55,6 +55,7 @@ public class ShipmentService {
     }
 
     private ResponseEntity<String> callService(Long id, String URL) {
+        log.info("Try to call service with URL={}", URL);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
