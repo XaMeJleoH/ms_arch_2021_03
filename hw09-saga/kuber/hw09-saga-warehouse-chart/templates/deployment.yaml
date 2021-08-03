@@ -17,6 +17,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "xamejleoh/{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: Always
           ports:
             - name: web
               containerPort: 83
