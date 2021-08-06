@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "order", schema = "ms_order")
-public class OrderDTO {
+@Table(name = "warehouse", schema = "ms_warehouse")
+public class WarehouseDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +19,15 @@ public class OrderDTO {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Column(name = "PAYMENT_ID")
+    private Long paymentId;
+
     @Column(name = "ORDER_NAME")
     private String orderName;
 
-    @Column(name = "AMOUNT")
-    private BigDecimal amount;
+    @Column(name = "SUCCESS")
+    private Boolean success;
 
-    @Column(name = "CANCELED_PAYMENT")
-    private Boolean canceledPayment;
+    @Column(name = "WAREHOUSE_STATUS")
+    private WarehouseStatus warehouseStatus;
 }

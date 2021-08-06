@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hw09-saga-warehouse.fullname" . }}
+  labels:
+    {{- include "hw09-saga-warehouse.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: web
+      protocol: TCP
+      name: web
+  selector:
+    {{- include "hw09-saga-warehouse.selectorLabels" . | nindent 4 }}
